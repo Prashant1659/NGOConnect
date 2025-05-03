@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Donation History | NGO Connect</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #6366F1;
+      --secondary: #4338CA;
+      --accent: #EC4899;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --dark: #1F2937;
+      --light: #F9FAFB;
+      --gray: #6B7280;
+      --light-gray: #E5E7EB;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: #F8FAFF;
+      color: var(--dark);
+    }
+    
+    /* Header Styles */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    /* Main Content */
+    .history-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 30px;
+    }
+    
+    /* Page Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .page-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .total-donated {
+      background: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      font-weight: 600;
+    }
+    
+    .total-amount {
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+    
+    /* Filters */
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
+    
+    .search-box {
+      position: relative;
+      width: 300px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      outline: none;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+    
+    .filter-group {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .filter-select {
+      padding: 12px 15px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .filter-select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    
+    /* Donations List */
+    .donations-list {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
+    
+    .donation-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 15px 20px;
+      background: #F9FAFB;
+      font-weight: 500;
+      color: var(--gray);
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .donation-item {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 20px;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .donation-item:last-child {
+      border-bottom: none;
+    }
+    
+    .donation-item:hover {
+      background: #F9FAFB;
+    }
+    
+    .campaign-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .campaign-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .campaign-details h4 {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .campaign-details p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .donation-amount {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .donation-date {
+      color: var(--gray);
+    }
+    
+    .donation-status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .status-completed {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+    
+    .status-processing {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+    }
+    
+    .status-failed {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+    
+    .view-receipt {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .view-receipt:hover {
+      gap: 8px;
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    
+    .page-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .page-link:hover, .page-link.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      color: var(--light-gray);
+      margin-bottom: 20px;
+    }
+    
+    .empty-text {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .donation-header {
+        display: none;
+      }
+      
+      .donation-item {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 25px;
+      }
+      
+      .campaign-info {
+        margin-bottom: 15px;
+      }
+      
+      .donation-meta {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      .user-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      
+      .filters {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .filter-group {
+        width: 100%;
+      }
+      
+      .filter-select {
+        flex: 1;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .history-container {
+        padding: 0 15px;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .donation-meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-hands-helping"></i>
+      </div>
+      <div class="logo-text">NGO Connect</div>
+    </div>
+    
+    <nav class="user-nav">
+      <a href="/donor/dashboard" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/donor/donation-history" class="nav-link active">
+        <i class="fas fa-history"></i>
+        <span>Donation History</span>
+      </a>
+      <a href="/donor/profile" class="nav-link">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+      <a href="/logout" class="nav-link">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="history-container">
+    <div class="page-header">
+      <h1 class="page-title">My Donation History</h1>
+      <div class="total-donated">
+        Total Donated: <span class="total-amount">$<%= totalDonated %></span>
+      </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="filters">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search campaigns...">
+      </div>
+      
+      <div class="filter-group">
+        <select class="filter-select">
+          <option value="">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="processing">Processing</option>
+          <option value="failed">Failed</option>
+        </select>
+        
+        <select class="filter-select">
+          <option value="">All Time</option>
+          <option value="month">This Month</option>
+          <option value="year">This Year</option>
+          <option value="custom">Custom Range</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Donations List -->
+    <% if (donations.length > 0) { %>
+      <div class="donations-list">
+        <div class="donation-header">
+          <div>Campaign</div>
+          <div>Amount</div>
+          <div>Date</div>
+          <div>Status</div>
+        </div>
+        
+        <% donations.forEach(donation => { %>
+          <div class="donation-item">
+            <div class="campaign-info">
+              <div class="campaign-image" style="background-image: url('<%= donation.campaign.image || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' %>');"></div>
+              <div class="campaign-details">
+                <h4><%= donation.campaign.title %></h4>
+                <p><%= donation.campaign.organizationName %></p>
+              </div>
+            </div>
+            
+            <div class="donation-amount">$<%= donation.amount %></div>
+            
+            <div class="donation-date">
+              <%= new Date(donation.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+            </div>
+            
+            <div>
+              <span class="donation-status <%= donation.status === 'completed' ? 'status-completed' : 
+                                          donation.status === 'processing' ? 'status-processing' : 
+                                          'status-failed' %>">
+                <%= donation.status %>
+              </span>
+            </div>
+            
+            <!-- Hidden in grid view, shown in responsive view -->
+            <div style="display: none;">
+              <a href="/donations/<%= donation._id %>/receipt" class="view-receipt">
+                View Receipt <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#" class="page-link">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+        <a href="#" class="page-link active">1</a>
+        <a href="#" class="page-link">2</a>
+        <a href="#" class="page-link">3</a>
+        <a href="#" class="page-link">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3>No Donations Yet</h3>
+        <p class="empty-text">Your donation history will appear here once you support a campaign.</p>
+        <a href="/campaigns" class="btn btn-primary">
+          <i class="fas fa-search"></i> Browse Campaigns
+        </a>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

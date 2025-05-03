@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Impact | NGO Connect</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --primary-light: #8B85FF;
+      --secondary: #4D44DB;
+      --accent: #FF6584;
+      --success: #3ECF8E;
+      --dark: #2D3748;
+      --light: #F7FAFC;
+      --gray: #718096;
+      --light-gray: #E2E8F0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: #F8F9FF;
+      color: var(--dark);
+      min-height: 100vh;
+    }
+    
+    /* Glassmorphism Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+    
+    /* Header Styles */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .user-avatar:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Main Content */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 30px;
+    }
+    
+    /* Hero Banner */
+    .hero-banner {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 280px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      opacity: 0.9;
+    }
+    
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+      max-width: 700px;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+    
+    .hero-text {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+    
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .stat-card {
+      padding: 25px;
+      border-radius: 18px;
+      transition: all 0.4s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+    }
+    
+    .stat-card.light {
+      background: white;
+    }
+    
+    .stat-card.accent {
+      background: linear-gradient(135deg, var(--accent), #FF8A9D);
+      color: white;
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    
+    .stat-card.primary .stat-icon {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .stat-card.light .stat-icon {
+      background: rgba(108, 99, 255, 0.1);
+      color: var(--primary);
+    }
+    
+    .stat-card.accent .stat-icon {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .stat-card.light .stat-label {
+      color: var(--gray);
+    }
+    
+    /* Donations Section */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .view-all {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .view-all:hover {
+      gap: 8px;
+    }
+    
+    .donations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+    
+    .donation-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    }
+    
+    .donation-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .donation-image {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .donation-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    
+    .donation-status {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      z-index: 2;
+    }
+    
+    .status-active {
+      background: var(--success);
+      color: white;
+    }
+    
+    .status-completed {
+      background: var(--light-gray);
+      color: var(--dark);
+    }
+    
+    .donation-content {
+      padding: 20px;
+    }
+    
+    .donation-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .donation-date {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .donation-amount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .amount-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .view-details {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .view-details:hover {
+      gap: 8px;
+    }
+    
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    
+    .action-card {
+      padding: 25px;
+      border-radius: 18px;
+      text-align: center;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      background: white;
+    }
+    
+    .action-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .action-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.5rem;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    }
+    
+    .action-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    
+    .action-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-banner {
+        height: 240px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      .user-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      
+      .hero-banner {
+        height: auto;
+        padding: 60px 20px;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .donations-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+      
+      .dashboard-container {
+        padding: 0 15px;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .stat-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    .stat-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    
+    .stat-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    
+    .donation-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    .donation-card:nth-child(1) { animation-delay: 0.1s; }
+    .donation-card:nth-child(2) { animation-delay: 0.2s; }
+    .donation-card:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header glass-card">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-hands-helping"></i>
+      </div>
+      <div class="logo-text">NGO Connect</div>
+    </div>
+    
+    <nav class="user-nav">
+      <a href="/donor/campaigns" class="nav-link">
+        <i class="fas fa-search"></i>
+        <span>Discover</span>
+      </a>
+      <a href="/donor/usage-report" class="nav-link">
+        <i class="fas fa-chart-line"></i>
+        <span>My Impact</span>
+      </a>
+      <a href="/donor/favorites" class="nav-link">
+        <i class="fas fa-heart"></i>
+        <span>Saved</span>
+      </a>
+      <div class="user-profile">
+        <div class="user-avatar">D</div>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Dashboard Content -->
+  <div class="dashboard-container">
+    <!-- Hero Banner -->
+    <div class="hero-banner glass-card">
+      <div class="hero-content">
+        <h1 class="hero-title">Your Generosity Changes Lives</h1>
+        <p class="hero-text">Thank you for being part of our mission to create positive change in communities worldwide.</p>
+      </div>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card primary">
+        <div class="stat-icon">
+          <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <div class="stat-value">$<%= totalDonated %></div>
+        <div class="stat-label">Total Donated</div>
+      </div>
+      
+      <div class="stat-card light">
+        <div class="stat-icon">
+          <i class="fas fa-gift"></i>
+        </div>
+        <div class="stat-value"><%= donations.length %></div>
+        <div class="stat-label">Contributions</div>
+      </div>
+      
+      <div class="stat-card accent">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-value">5+</div>
+        <div class="stat-label">Causes Supported</div>
+      </div>
+    </div>
+    
+    <!-- My Donations Section -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">My Donations</h2>
+        <a href="/donor/donation-history" class="view-all">
+          View All
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="donations-grid">
+        <% donations.forEach(donation => { %>
+          <div class="donation-card glass-card">
+            <div class="donation-image" style="background-image: url('<%= donation.campaign.image || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' %>');">
+              <span class="donation-status <%= donation.campaign.status === 'active' ? 'status-active' : 'status-completed' %>">
+                <%= donation.campaign.status %>
+              </span>
+            </div>
+            <div class="donation-content">
+              <h3 class="donation-title"><%= donation.campaign.title %></h3>
+              <p class="donation-date">
+                <i class="far fa-calendar-alt"></i>
+                <%= new Date(donation.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </p>
+              <div class="donation-amount">
+                <div class="amount-value">$<%= donation.amount %></div>
+                <a href="/campaigns/<%= donation.campaign.id %>" class="view-details">
+                  Details
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+    
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <div class="action-card glass-card" onclick="window.location.href='/donor/campaigns'">
+        <div class="action-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3 class="action-title">Find Causes</h3>
+        <p class="action-desc">Discover new campaigns to support</p>
+      </div>
+      
+      <div class="action-card glass-card" onclick="window.location.href='/donor/recurring'">
+        <div class="action-icon">
+          <i class="fas fa-sync-alt"></i>
+        </div>
+        <h3 class="action-title">Recurring Gifts</h3>
+        <p class="action-desc">Set up monthly donations</p>
+      </div>
+      
+      <div class="action-card glass-card" onclick="window.location.href='/donor/usage-report'">
+        <div class="action-icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <h3 class="action-title">Impact Report</h3>
+        <p class="action-desc">See how your donations help</p>
+      </div>
+      
+      <div class="action-card glass-card" onclick="window.location.href='/donor/profile'">
+        <div class="action-icon">
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <h3 class="action-title">Profile Settings</h3>
+        <p class="action-desc">Update your preferences</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

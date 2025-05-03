@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= ngoProfile.organizationName %> Dashboard | NGO Connect</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #6366F1;
+      --secondary: #4338CA;
+      --accent: #EC4899;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --dark: #1F2937;
+      --light: #F9FAFB;
+      --gray: #6B7280;
+      --light-gray: #E5E7EB;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: #F8FAFF;
+      color: var(--dark);
+      min-height: 100vh;
+    }
+    
+    /* Header Styles */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+    }
+    
+    /* Main Content */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 30px;
+    }
+    
+    /* Welcome Banner */
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .welcome-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+      opacity: 0.15;
+      animation: rotate 30s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .welcome-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .welcome-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .welcome-text {
+      opacity: 0.9;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    
+    /* Stats Overview */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .stat-card.primary {
+      border-left: 4px solid var(--primary);
+    }
+    
+    .stat-card.success {
+      border-left: 4px solid var(--success);
+    }
+    
+    .stat-card.warning {
+      border-left: 4px solid var(--warning);
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+    
+    /* Campaigns Section */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .campaigns-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+    }
+    
+    .campaign-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+    }
+    
+    .campaign-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .campaign-image {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .campaign-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+    
+    .campaign-status {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      z-index: 2;
+    }
+    
+    .status-active {
+      background: var(--success);
+      color: white;
+    }
+    
+    .status-draft {
+      background: var(--warning);
+      color: white;
+    }
+    
+    .status-completed {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .campaign-content {
+      padding: 20px;
+    }
+    
+    .campaign-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .campaign-description {
+      color: var(--gray);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .progress-container {
+      margin-bottom: 20px;
+    }
+    
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: var(--light-gray);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    .campaign-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .view-btn {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .view-btn:hover {
+      gap: 8px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .welcome-title {
+        font-size: 1.6rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      .user-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      
+      .welcome-banner {
+        padding: 20px;
+      }
+      
+      .campaigns-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .dashboard-container {
+        padding: 0 15px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .stat-card, .campaign-card {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .stat-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    
+    .stat-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    
+    .campaign-card:nth-child(1) { animation-delay: 0.1s; }
+    .campaign-card:nth-child(2) { animation-delay: 0.2s; }
+    .campaign-card:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-hands-helping"></i>
+      </div>
+      <div class="logo-text">NGO Connect</div>
+    </div>
+    
+    <nav class="user-nav">
+      <a href="/ngo/dashboard" class="nav-link active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/ngo/create-campaign" class="nav-link">
+        <i class="fas fa-plus-circle"></i>
+        <span>Create Campaign</span>
+      </a>
+      <a href="/ngo/profile" class="nav-link">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+      <a href="/logout" class="nav-link">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </header>
+  
+  <!-- Dashboard Content -->
+  <div class="dashboard-container">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="welcome-content">
+        <h1 class="welcome-title">Welcome, <%= ngoProfile.organizationName %></h1>
+        <p class="welcome-text">Thank you for making a difference in our community. Here's an overview of your campaigns and impact.</p>
+        <a href="/ngo/create-campaign" class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          Create New Campaign
+        </a>
+      </div>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card primary">
+        <div class="stat-value">$<%= totalFundsRaised %></div>
+        <div class="stat-label">Total Funds Raised</div>
+      </div>
+      
+      <div class="stat-card success">
+        <div class="stat-value"><%= campaigns.filter(c => c.status === 'active').length %></div>
+        <div class="stat-label">Active Campaigns</div>
+      </div>
+      
+      <div class="stat-card warning">
+        <div class="stat-value"><%= campaigns.filter(c => c.status === 'completed').length %></div>
+        <div class="stat-label">Completed Campaigns</div>
+      </div>
+    </div>
+    
+    <!-- Campaigns Section -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">My Campaigns</h2>
+        <a href="/ngo/create-campaign" class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          New Campaign
+        </a>
+      </div>
+      
+      <div class="campaigns-grid">
+        <% campaigns.forEach(campaign => { %>
+          <div class="campaign-card">
+            <div class="campaign-image" style="background-image: url('<%= campaign.image || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' %>');">
+              <span class="campaign-status <%= campaign.status === 'active' ? 'status-active' : 
+                                           campaign.status === 'draft' ? 'status-draft' : 
+                                           'status-completed' %>">
+                <%= campaign.status %>
+              </span>
+            </div>
+            <div class="campaign-content">
+              <h3 class="campaign-title"><%= campaign.title %></h3>
+              <p class="campaign-description"><%= campaign.description.substring(0, 100) %>...</p>
+              
+              <div class="progress-container">
+                <div class="progress-info">
+                  <span>Raised: $<%= campaign.currentAmount %></span>
+                  <span>Goal: $<%= campaign.goalAmount %></span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: <%= (campaign.currentAmount / campaign.goalAmount * 100) %>%"></div>
+                </div>
+              </div>
+              
+              <div class="campaign-actions">
+                <span><%= campaign.donations %> donations</span>
+                <a href="/campaigns/<%= campaign.id %>" class="view-btn">
+                  View Details
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | NGO Connect</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #6366F1;
+      --secondary: #4338CA;
+      --accent: #EC4899;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --dark: #1F2937;
+      --light: #F9FAFB;
+      --gray: #6B7280;
+      --light-gray: #E5E7EB;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: #F8FAFF;
+      color: var(--dark);
+    }
+    
+    /* Header Styles */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    /* Main Content */
+    .management-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 30px;
+    }
+    
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--light-gray);
+      color: var(--gray);
+    }
+    
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    /* User Table */
+    .users-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 15px;
+    }
+    
+    .users-table thead th {
+      text-align: left;
+      padding: 15px 20px;
+      color: var(--gray);
+      font-weight: 500;
+      background: white;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .users-table tbody tr {
+      background: white;
+      transition: all 0.3s ease;
+    }
+    
+    .users-table tbody tr:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+    
+    .users-table td {
+      padding: 20px;
+      vertical-align: middle;
+    }
+    
+    .users-table td:first-child {
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+    
+    .users-table td:last-child {
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+    
+    .user-name {
+      font-weight: 500;
+    }
+    
+    .user-email {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .role-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .role-admin {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+    
+    .role-ngo {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+    
+    .role-donor {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+    }
+    
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-icon.edit {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+    
+    .btn-icon.edit:hover {
+      background: var(--success);
+      color: white;
+    }
+    
+    .btn-icon.delete {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+    
+    .btn-icon.delete:hover {
+      background: var(--danger);
+      color: white;
+    }
+    
+    /* Search and Filter */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    
+    .search-box {
+      position: relative;
+      width: 300px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      outline: none;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+    
+    .filter-group {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .filter-select {
+      padding: 12px 15px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .filter-select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .users-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      
+      .user-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      
+      .controls {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .filter-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .filter-select {
+        flex: 1;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .management-container {
+        padding: 0 15px;
+      }
+      
+      .action-btns {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .btn-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-hands-helping"></i>
+      </div>
+      <div class="logo-text">NGO Connect</div>
+    </div>
+    
+    <nav class="user-nav">
+      <a href="/admin/dashboard" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/admin/manage-users" class="nav-link active">
+        <i class="fas fa-users"></i>
+        <span>Manage Users</span>
+      </a>
+      <a href="/admin/verify-ngos" class="nav-link">
+        <i class="fas fa-check-circle"></i>
+        <span>Verify NGOs</span>
+      </a>
+      <a href="/logout" class="nav-link">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="management-container">
+    <div class="section-header">
+      <h1 class="section-title">User Management</h1>
+      <a href="/admin/dashboard" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i>
+        Back to Dashboard
+      </a>
+    </div>
+    
+    <!-- Search and Filter Controls -->
+    <div class="controls">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search users...">
+      </div>
+      
+      <div class="filter-group">
+        <select class="filter-select">
+          <option value="">All Roles</option>
+          <option value="admin">Admin</option>
+          <option value="ngo">NGO</option>
+          <option value="donor">Donor</option>
+        </select>
+        
+        <select class="filter-select">
+          <option value="">Sort By</option>
+          <option value="name">Name</option>
+          <option value="date">Join Date</option>
+          <option value="role">Role</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Users Table -->
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Join Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <td>
+              <div class="user-info">
+                <div class="user-avatar"><%= user.name.charAt(0) %></div>
+                <div>
+                  <div class="user-name"><%= user.name %></div>
+                  <div class="user-email"><%= user.email %></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="role-badge <%= user.role === 'admin' ? 'role-admin' : 
+                                        user.role === 'ngo' ? 'role-ngo' : 
+                                        'role-donor' %>">
+                <%= user.role %>
+              </span>
+            </td>
+            <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
+            <td>
+              <% if(user.active) { %>
+                <span style="color: var(--success);">
+                  <i class="fas fa-circle" style="font-size: 0.7rem;"></i> Active
+                </span>
+              <% } else { %>
+                <span style="color: var(--danger);">
+                  <i class="fas fa-circle" style="font-size: 0.7rem;"></i> Active
+                </span>
+              <% } %>
+            </td>
+            <td>
+              <div class="action-btns">
+                <div class="btn-icon edit" title="Edit User">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <form action="/admin/remove-user/<%= user._id %>" method="POST" style="display: inline;">
+                  <button type="submit" class="btn-icon delete" title="Remove User" onclick="return confirm('Are you sure you want to remove this user?')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

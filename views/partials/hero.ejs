@@ -1,0 +1,19 @@
+<section class="hero-section py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-4"><%= heroTitle %></h1>
+          <p class="lead mb-4"><%= heroSubtitle %></p>
+          <div class="d-flex gap-3">
+            <% if(showDonateButton) { %>
+              <a href="/donate" class="btn btn-light btn-lg">Donate Now</a>
+            <% } %>
+            <a href="/causes" class="btn btn-outline-light btn-lg">Explore Causes</a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+          <img src="<%= heroImage %>" alt="Hero image" class="img-fluid rounded-3 shadow">
+        </div>
+      </div>
+    </div>
+  </section>
