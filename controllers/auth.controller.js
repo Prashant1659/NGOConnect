@@ -152,3 +152,22 @@ exports.logout = (req, res) => {
     res.redirect('/');
   });
 };
+
+exports.getAbout = (req,res) =>{
+  res.render('about');
+}
+
+exports.getContact = (req,res) =>{
+  res.render('contact');
+}
+exports.getRecommended = (req,res) =>{
+  res.render('contact');
+}
+
+exports.getCauses = (req,res) => {
+  res.render('causes');
+}
+
+exports.getNgos = (req,res) => {
+  res.render('contact');
+}

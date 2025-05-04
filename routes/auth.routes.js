@@ -16,6 +16,10 @@ router.post('/login', multiFileUpload, authController.postLogin);
 
 // Logout
 router.get('/logout', authController.logout);
-
+router.get('/about',authController.getAbout);
+router.get('/contact',authController.getContact);
+router.get('/recommended',authController.getRecommended);
+router.get('/ngos',authController.getNgos);
+router.get('/causes',authController.getCauses);
 
 module.exports = router;

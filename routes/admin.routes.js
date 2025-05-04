@@ -21,6 +21,7 @@ router.get('/manage-users', isAuthenticated, isRole('admin'), adminController.ma
 router.post('/remove-user/:id', isAuthenticated, isRole('admin'), adminController.removeUser);
 router.get('/create-campaign', isAuthenticated, isRole('admin'), adminController.getCreateCampaign);
 router.post('/create-campaign', isAuthenticated, isRole('admin'), singleFileUpload,adminController.postCreateCampaign);
-router.get('/update-user-proifle',isAuthenticated,isRole('admin'),adminController.getProfileUpdate);
+router.get('/update-user-proifle',isAuthenticated,isRole('admin'),adminController.getProfileUpdate)
+router.post('/update-user-profile',isAuthenticated,isRole('admin',adminController.postProfileUpdate));
 
 module.exports = router;
