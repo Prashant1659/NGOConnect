@@ -104,3 +104,16 @@ exports.getCreateCampaign = (req, res) => {
       res.redirect('/admin/create-campaign');
     }
   };
+
+exports.getProfileUpdate = (req, res) => {
+    res.render('admin/manageUserProfile');
+  };
+
+  exports.postProfileUpdate = async (req, res) => {
+    try {
+      res.redirect('/admin/dashboard');
+    } catch (err) {
+      console.error(err);
+      res.redirect('/admin/create-campaign');
+    }
+  };
