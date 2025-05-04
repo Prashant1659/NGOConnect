@@ -1,60 +1,344 @@
-<footer class="bg-dark text-white pt-5 pb-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Footer</title>
+  <!-- Add Bootstrap CSS link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --accent-color: #f72585;
+      --dark-color: #14213d;
+      --light-color: #f8f9fa;
+      --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 80px 0 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient);
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 25px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    
+    .footer-logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .footer-links h5 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+      color: white;
+    }
+    
+    .footer-links h5::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 3px;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .footer-links li:hover {
+      transform: translateX(5px);
+    }
+    
+    .footer-links a {
+      color: #d1d1d1;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-links a i {
+      width: 20px;
+      text-align: center;
+      color: var(--primary-color);
+    }
+    
+    .social-icons {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .social-icons a:hover::after {
+      opacity: 1;
+    }
+    
+    .social-icons a i {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-info li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .contact-info i {
+      margin-top: 3px;
+      color: var(--primary-color);
+    }
+    
+    .newsletter {
+      margin-top: 25px;
+    }
+    
+    .newsletter p {
+      margin-bottom: 15px;
+      color: #d1d1d1;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    .newsletter-form input::placeholder {
+      color: #aaa;
+    }
+    
+    .newsletter-form button {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .newsletter-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .copyright {
+      margin-top: 60px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .payment-methods {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .payment-methods i {
+      font-size: 1.5rem;
+      color: #d1d1d1;
+      transition: color 0.3s ease;
+    }
+    
+    .payment-methods i:hover {
+      color: white;
+    }
+    
+    @media (max-width: 767.98px) {
+      .footer {
+        padding: 50px 0 20px;
+      }
+      
+      .copyright {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Footer -->
+  <footer class="footer">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4 mb-4">
-          <h2 class="text-white mb-3">GiveHope</h2>
-          <p>Connecting generous donors with impactful NGOs to create positive change in communities worldwide.</p>
-          <div class="social-icons mt-3">
-            <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+      <div class="row g-4">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <a href="#" class="footer-logo">GiveHope</a>
+          <p style="color: #d1d1d1; line-height: 1.7;">Connecting generous donors with impactful NGOs to create positive change in communities around the world.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          
+          <div class="newsletter mt-4">
+            <p>Subscribe to our newsletter</p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Your email address">
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </div>
           </div>
         </div>
         
-        <div class="col-lg-2 col-md-4 mb-4">
-          <h5 class="text-uppercase mb-3">Quick Links</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2"><a href="/" class="text-white text-decoration-none">Home</a></li>
-            <li class="mb-2"><a href="/about" class="text-white text-decoration-none">About Us</a></li>
-            <li class="mb-2"><a href="/causes" class="text-white text-decoration-none">Causes</a></li>
-            <li class="mb-2"><a href="/blog" class="text-white text-decoration-none">Blog</a></li>
-            <li class="mb-2"><a href="/contact" class="text-white text-decoration-none">Contact</a></li>
-          </ul>
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Causes</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Events</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+            </ul>
+          </div>
         </div>
         
-        <div class="col-lg-2 col-md-4 mb-4">
-          <h5 class="text-uppercase mb-3">Support</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2"><a href="/faq" class="text-white text-decoration-none">FAQ</a></li>
-            <li class="mb-2"><a href="/privacy" class="text-white text-decoration-none">Privacy Policy</a></li>
-            <li class="mb-2"><a href="/terms" class="text-white text-decoration-none">Terms of Service</a></li>
-            <li class="mb-2"><a href="/cookies" class="text-white text-decoration-none">Cookie Policy</a></li>
-          </ul>
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Support</h5>
+            <ul>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Donation Policy</a></li>
+            </ul>
+          </div>
         </div>
         
-        <div class="col-lg-4 col-md-4 mb-4">
-          <h5 class="text-uppercase mb-3">Contact Us</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Charity St, Hope City</li>
-            <li class="mb-2"><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</li>
-            <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@givehope.org</li>
-            <li class="mb-2"><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM - 5PM</li>
-          </ul>
-          
-          <h5 class="text-uppercase mt-4 mb-3">Newsletter</h5>
-          <form class="mb-3">
-            <div class="input-group">
-              <input type="email" class="form-control" placeholder="Your email">
-              <button class="btn btn-primary" type="submit">Subscribe</button>
-            </div>
-          </form>
+        <div class="col-lg-4 col-md-4">
+          <div class="footer-links">
+            <h5>Contact Us</h5>
+            <ul class="contact-info">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>123 Charity St, Hope City, Global 10001</span>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <span>+1 (555) 123-4567<br>+1 (555) 765-4321</span>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <span>info@givehope.org<br>support@givehope.org</span>
+              </li>
+              <li>
+                <i class="fas fa-clock"></i>
+                <span>Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 4PM</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       
-      <div class="border-top pt-3 mt-3 text-center">
-        <p class="mb-0">&copy; 2025 GiveHope. All rights reserved.</p>
+      <div class="copyright">
+        <p>© 2025 GiveHope. All rights reserved.</p>
+        <div class="payment-methods">
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fab fa-cc-paypal" title="PayPal"></i>
+          <i class="fab fa-cc-apple-pay" title="Apple Pay"></i>
+          <i class="fab fa-cc-amazon-pay" title="Amazon Pay"></i>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
