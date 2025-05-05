@@ -1,6 +1,8 @@
 // controllers/authController.js
 const User = require('../models/user.models');
 const NgoProfile = require('../models/ngoProfile.models');
+const Campaign = require('../models/campaign.models');
+// const Organization = require('../models/organization.models');
 const bcrypt = require('bcrypt');
 exports.home = (req,res) => {
     res.render('home.ejs');
@@ -146,6 +148,39 @@ exports.postLogin = async (req, res) => {
   }
 };
 
+exports.getCauses = async (req, res) => {
+  try {
+    // 1. Fetch campaign data from database
+    const campaign = await Campaign.findById(req.params.id)
+      .populate('organization')
+      .populate('updates');
+
+    if (!campaign) {
+      return res.status(404).render('error', { 
+        message: 'Campaign not found' 
+      });
+    }
+
+    // 2. Calculate days left (if needed)
+    const daysLeft = Math.ceil(
+      (new Date(campaign.endDate) - new Date()) / (1000 * 60 * 60 * 24)
+    );
+
+    // 3. Render the view WITH the campaign data
+    res.render('causes', { 
+      campaign: {
+        ...campaign._doc,
+        daysLeft: daysLeft > 0 ? daysLeft : 0
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).render('error', { 
+      message: 'Server error' 
+    });
+  }
+};
 
 exports.logout = (req, res) => {
   req.session.destroy(() => {
@@ -170,4 +205,84 @@ exports.getCauses = (req,res) => {
 
 exports.getNgos = (req,res) => {
   res.render('contact');
+}
+
+exports.getCampaignDetails = async (req, res) => {
+  try {
+    const campaign = await Campaign.findById(req.params.id)
+      .populate('organization')
+      .populate('updates');
+
+    if (!campaign) {
+      return res.status(404).render('error', { 
+        message: 'Campaign not found' 
+      });
+    }
+
+    // Calculate days left
+    const daysLeft = Math.ceil(
+      (new Date(campaign.endDate) - new Date()) / (1000 * 60 * 60 * 24)
+    );
+
+    res.render('campaignDetails', { 
+      campaign: {
+        ...campaign._doc,
+        daysLeft: daysLeft > 0 ? daysLeft : 0
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).render('error', { 
+      message: 'Server error' 
+    });
+  }
+}
+
+exports.getCauseById = async (req, res) => {
+  try {
+    const campaign = await Campaign.findById(req.params.id)
+      .populate('organization')
+      .populate('updates');
+
+    if (!campaign) {
+      return res.status(404).render('error', { 
+        message: 'Campaign not found' 
+      });
+    }
+
+    // Calculate days left
+    const daysLeft = Math.ceil(
+      (new Date(campaign.endDate) - new Date()) / (1000 * 60 * 60 * 24)
+    );
+
+    res.render('causes', { 
+      campaign: {
+        ...campaign._doc,
+        daysLeft: daysLeft > 0 ? daysLeft : 0
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).render('error', { 
+      message: 'Server error' 
+    });
+  }
+}
+exports.getCauses = async (req, res) => {
+  try {
+    // Fetch all campaigns from the database
+    const campaigns = await Campaign.find()
+      // .populate('organization')
+      // .populate('updates');
+
+    // Render the view with the campaigns data
+    res.render('causes', { campaigns });
+  } catch (error) {
+    console.error('Error fetching campaigns:', error);
+    res.status(500).render('error', { 
+      message: 'Server error' 
+    });
+  }
 }
