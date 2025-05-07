@@ -37,9 +37,11 @@ exports.postCreateCampaign = async (req, res) => {
   // console.log(req);
   const { title, description, goalAmount, usageDescription } = req.body;
   try {
+    const ngo = await NgoProfile.find({user:req.session.userId});
     const campaign = new Campaign({
       ngo: req.session.userId,
       title,
+      ngoName:ngo[0].organizationName,
       description,
       goalAmount,
       usageDescription
@@ -85,3 +87,14 @@ exports.postRegister = async (req, res) => {
     res.redirect('/login');
   }
 };
+
+exports.Campaigns = async (req,res) => {
+  try {
+    const campaign = await Campaign.find().populate('ngo');
+
+    if(!campaign) return res.render('error',{message:"Not able to find any campaign"});
+    return res.render('causes',campaign);
+  } catch (error) {
+    return res.render('error',{message:error});
+  }
+}
