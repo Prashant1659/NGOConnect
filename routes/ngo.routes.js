@@ -12,6 +12,8 @@ router.get('/dashboard', isAuthenticated, isRole('ngo'), verifiedNgo , ngoContro
 router.get('/create-campaign', isAuthenticated, isRole('ngo'), ngoController.getCreateCampaign);
 router.post('/create-campaign', isAuthenticated, isRole('ngo'), upload.singleFileUpload,ngoController.postCreateCampaign);
 
+router.get('/campaigns',ngoController.Campaigns );
+
 router.get('/register',ngoController.getRegister);
 router.post('/register',ngoController.postRegister);
 module.exports = router;

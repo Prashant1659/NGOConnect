@@ -210,8 +210,6 @@ exports.getNgos = (req,res) => {
 exports.getCampaignDetails = async (req, res) => {
   try {
     const campaign = await Campaign.findById(req.params.id)
-      .populate('organization')
-      .populate('updates');
 
     if (!campaign) {
       return res.status(404).render('error', { 
@@ -274,7 +272,7 @@ exports.getCauses = async (req, res) => {
   try {
     // Fetch all campaigns from the database
     const campaigns = await Campaign.find()
-      // .populate('organization')
+      .populate('ngo');
       // .populate('updates');
 
     // Render the view with the campaigns data
