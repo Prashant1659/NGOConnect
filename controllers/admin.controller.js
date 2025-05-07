@@ -2,7 +2,7 @@ const NgoProfile = require('../models/ngoProfile.models');
 const User = require('../models/user.models');
 const Campaign = require('../models/campaign.models');
 
-// Dashboard
+
 // Dashboard
 exports.dashboard = async (req, res) => {
     try {

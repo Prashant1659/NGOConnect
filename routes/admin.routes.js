@@ -24,4 +24,7 @@ router.post('/create-campaign', isAuthenticated, isRole('admin'), singleFileUplo
 router.get('/update-user-proifle',isAuthenticated,isRole('admin'),adminController.getProfileUpdate)
 router.post('/update-user-profile',isAuthenticated,isRole('admin',adminController.postProfileUpdate));
 
+// router.get('/campaigns', isAuthenticated, isRole('admin'), adminController.getCampaigns);
+// router.get('/campaigns/:id', isAuthenticated, isRole('admin'), adminController.getCampaignDetails);
+
 module.exports = router;

@@ -27,19 +27,5 @@ const updateSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-// const campaignSchema = new mongoose.Schema({
-//   title: { type: String, required: true },
-//   description: { type: String, required: true },
-//   category: { type: String, required: true },
-//   imageUrl: { type: String, required: true },
-//   coverImage: { type: String, required: true },
-//   targetAmount: { type: Number, required: true },
-//   amountRaised: { type: Number, default: 0 },
-//   donors: { type: Number, default: 0 },
-//   startDate: { type: Date, default: Date.now },
-//   endDate: { type: Date, required: true },
-//   organization: { type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
-//   updates: [updateSchema]
-// });
 
 module.exports = mongoose.model('Campaign', campaignSchema);

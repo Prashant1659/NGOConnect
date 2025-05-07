@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Approval | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+        }
+        
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .admin-sidebar {
+            width: 250px;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav a {
+            display: block;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-nav .active a {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .admin-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--dark);
+            font-size: 28px;
+        }
+        
+        /* Campaign Cards */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .campaign-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .campaign-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .campaign-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .campaign-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .campaign-details {
+            padding: 20px;
+        }
+        
+        .campaign-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .campaign-desc {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .campaign-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .campaign-category {
+            background: #e9ecef;
+            color: var(--dark);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .campaign-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .progress-container {
+            margin-bottom: 15px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        .campaign-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-approve {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-approve:hover {
+            background: #218838;
+        }
+        
+        .btn-reject {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-reject:hover {
+            background: #c82333;
+        }
+        
+        .btn-view {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-view:hover {
+            background: var(--secondary);
+        }
+        
+        /* Filters */
+        .campaign-filters {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .filter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .empty-state i {
+            font-size: 50px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .admin-container {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+            }
+            
+            .sidebar-nav ul {
+                display: flex;
+                overflow-x: auto;
+            }
+            
+            .sidebar-nav li {
+                flex-shrink: 0;
+            }
+            
+            .sidebar-nav a {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .sidebar-nav .active a {
+                border-left: none;
+                border-bottom: 3px solid var(--primary);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .campaign-filters {
+                flex-direction: column;
+            }
+            
+            .admin-content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="active"><a href="/admin/campaigns"><i class="fas fa-bullhorn"></i> Campaigns</a></li>
+                    <li><a href="/admin/approvals"><i class="fas fa-check-circle"></i> Approvals</a></li>
+                    <li><a href="/admin/users"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="/admin/settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="content-header">
+                <h1>Campaign Approvals</h1>
+                <div class="campaign-count">
+                    <%= pendingCount %> Pending Approvals
+                </div>
+            </header>
+
+            <!-- Campaign Filters -->
+            <section class="campaign-filters">
+                <div class="filter-group">
+                    <label for="status-filter">Status:</label>
+                    <select id="status-filter">
+                        <option value="all">All Statuses</option>
+                        <option value="pending" selected>Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="category-filter">Category:</label>
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category %>"><%= category %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date-filter">Date Range:</label>
+                    <select id="date-filter">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Campaigns Grid -->
+            <section class="campaigns-grid">
+                <% if (campaigns && campaigns.length > 0) { %>
+                    <% campaigns.forEach(campaign => { %>
+                        <div class="campaign-card">
+                            <div class="campaign-image">
+                                <img src="<%= campaign.imageUrl || '/images/default-campaign.jpg' %>" alt="<%= campaign.title %>">
+                            </div>
+                            <div class="campaign-details">
+                                <div class="campaign-meta">
+                                    <span class="campaign-category"><%= campaign.category %></span>
+                                    <span class="campaign-status status-<%= campaign.status %>">
+                                        <%= campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1) %>
+                                    </span>
+                                </div>
+                                <h3 class="campaign-title"><%= campaign.title %></h3>
+                                <p class="campaign-desc"><%= campaign.shortDescription %></p>
+                                
+                                <div class="progress-container">
+                                    <div class="progress-text">
+                                        <span>$<%= campaign.raisedAmount || 0 %> raised</span>
+                                        <span>$<%= campaign.goalAmount %> goal</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: <%= Math.min((campaign.raisedAmount || 0) / campaign.goalAmount * 100, 100) %>%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="campaign-actions">
+                                    <% if (campaign.status === 'pending') { %>
+                                        <button class="btn btn-approve" data-id="<%= campaign._id %>">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button class="btn btn-reject" data-id="<%= campaign._id %>">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    <% } %>
+                                    <button class="btn btn-view" data-id="<%= campaign._id %>">
+                                        <i class="fas fa-eye"></i> View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Campaigns Found</h3>
+                        <p>There are currently no campaigns pending approval.</p>
+                    </div>
+                <% } %>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Approve Campaign
+        document.querySelectorAll('.btn-approve').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const campaignId = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to approve this campaign?')) {
+                    try {
+                        const response = await fetch(`/admin/campaigns/${campaignId}/approve`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            alert('Campaign approved successfully!');
+                            location.reload();
+                        } else {
+                            throw new Error('Failed to approve campaign');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error approving campaign');
+                    }
+                }
+            });
+        });
+        
+        // Reject Campaign
+        document.querySelectorAll('.btn-reject').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const campaignId = this.getAttribute('data-id');
+                const reason = prompt('Please enter the reason for rejection:');
+                
+                if (reason !== null) {
+                    if (confirm('Are you sure you want to reject this campaign?')) {
+                        try {
+                            const response = await fetch(`/admin/campaigns/${campaignId}/reject`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ reason })
+                            });
+                            
+                            if (response.ok) {
+                                alert('Campaign rejected successfully!');
+                                location.reload();
+                            } else {
+                                throw new Error('Failed to reject campaign');
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            alert('Error rejecting campaign');
+                        }
+                    }
+                }
+            });
+        });
+        
+        // View Campaign
+        document.querySelectorAll('.btn-view').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const campaignId = this.getAttribute('data-id');
+                window.open(`/campaigns/${campaignId}`, '_blank');
+            });
+        });
+        
+        // Filter Campaigns
+        document.getElementById('status-filter').addEventListener('change', function() {
+            const status = this.value;
+            window.location.href = `/admin/approvals?status=${status}`;
+        });
+        
+        document.getElementById('category-filter').addEventListener('change', function() {
+            const category = this.value;
+            const status = document.getElementById('status-filter').value;
+            window.location.href = `/admin/approvals?status=${status}&category=${category}`;
+        });
+        
+        document.getElementById('date-filter').addEventListener('change', function() {
+            const dateRange = this.value;
+            const status = document.getElementById('status-filter').value;
+            const category = document.getElementById('category-filter').value;
+            window.location.href = `/admin/approvals?status=${status}&category=${category}&date=${dateRange}`;
+        });
+    </script>
+</body>
+</html>

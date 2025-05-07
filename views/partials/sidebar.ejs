@@ -1,6 +1,3 @@
-<%- include('../partials/sidebar') %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +19,8 @@
       --success: #4cc9f0;
       --warning: #f8961e;
       --danger: #ef233c;
-      --sidebar-width: 280px;
+      --sidebar-width: 260px;
+      --sidebar-collapsed-width: 80px;
     }
     
     * {
@@ -39,56 +37,57 @@
       display: flex;
     }
     
-    /* Sidebar Styles */
+    /* Sidebar Styles - Redesigned */
     .sidebar {
       width: var(--sidebar-width);
-      background: white;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-      padding: 30px 0;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 20px 0;
       position: fixed;
       height: 100vh;
       transition: all 0.3s ease;
       z-index: 100;
+      color: white;
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
     }
     
     .logo {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 30px 30px;
-      border-bottom: 1px solid #eee;
-      margin-bottom: 30px;
+      padding: 0 20px 25px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .logo-icon {
       width: 40px;
       height: 40px;
-      background: var(--primary);
+      background: white;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--primary);
       font-size: 1.2rem;
     }
     
     .logo-text {
       font-size: 1.3rem;
       font-weight: 700;
-      color: var(--dark);
+      color: white;
     }
     
     .nav-menu {
-      padding: 0 20px;
+      padding: 0 10px;
     }
     
     .nav-title {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #999;
-      margin: 25px 0 15px;
-      padding-left: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 20px 0 10px;
+      padding-left: 15px;
     }
     
     .nav-item {
@@ -98,26 +97,28 @@
       padding: 12px 15px;
       border-radius: 8px;
       margin-bottom: 5px;
-      color: #666;
+      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
       transition: all 0.3s ease;
+      font-size: 0.95rem;
     }
     
     .nav-item i {
       width: 24px;
       text-align: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
     
     .nav-item.active {
-      background: rgba(67, 97, 238, 0.1);
-      color: var(--primary);
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
       font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     .nav-item:hover:not(.active) {
-      background: #f5f5f5;
-      color: var(--dark);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
     }
     
     /* Main Content Styles */
@@ -129,11 +130,11 @@
     
     .top-bar {
       background: white;
-      padding: 20px 30px;
+      padding: 18px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -142,12 +143,19 @@
     .page-title h1 {
       font-size: 1.5rem;
       font-weight: 700;
+      color: var(--dark);
     }
     
     .user-menu {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     .user-avatar {
@@ -160,6 +168,27 @@
       align-items: center;
       justify-content: center;
       font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .user-avatar:hover {
+      transform: scale(1.05);
+    }
+    
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .user-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .user-role {
+      font-size: 0.8rem;
+      color: #777;
     }
     
     .logout-btn {
@@ -171,9 +200,13 @@
       align-items: center;
       gap: 5px;
       font-size: 0.9rem;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 8px;
     }
     
     .logout-btn:hover {
+      background: rgba(239, 35, 60, 0.1);
       color: var(--danger);
     }
     
@@ -181,11 +214,11 @@
       padding: 30px;
     }
     
-    /* Dashboard Cards */
+    /* Dashboard Cards - Enhanced */
     .stats-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 25px;
       margin-bottom: 30px;
     }
     
@@ -193,25 +226,90 @@
       background: white;
       border-radius: 12px;
       padding: 25px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     
     .stat-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    
+    .stat-card.primary::before {
+      background: var(--primary);
+    }
+    
+    .stat-card.success::before {
+      background: var(--success);
+    }
+    
+    .stat-card.warning::before {
+      background: var(--warning);
+    }
+    
+    .stat-card.accent::before {
+      background: var(--accent);
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .primary .card-icon {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+    }
+    
+    .success .card-icon {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .warning .card-icon {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .accent .card-icon {
+      background: rgba(247, 37, 133, 0.1);
+      color: var(--accent);
     }
     
     .stat-card .card-title {
       font-size: 0.9rem;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
     
     .stat-card .card-value {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      color: var(--dark);
     }
     
     .stat-card .card-change {
@@ -229,37 +327,34 @@
       color: var(--danger);
     }
     
-    .stat-card.primary {
-      border-left: 4px solid var(--primary);
-    }
-    
-    .stat-card.success {
-      border-left: 4px solid var(--success);
-    }
-    
-    .stat-card.warning {
-      border-left: 4px solid var(--warning);
-    }
-    
-    /* Sections */
+    /* Sections - Enhanced */
     .dashboard-section {
       background: white;
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+    
+    .dashboard-section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
     
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
     }
     
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
+      color: var(--dark);
     }
     
     .section-actions {
@@ -268,7 +363,7 @@
     }
     
     .btn {
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 8px;
       border: none;
       font-size: 0.9rem;
@@ -283,10 +378,13 @@
     .btn-primary {
       background: var(--primary);
       color: white;
+      box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
     }
     
     .btn-primary:hover {
       background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
     }
     
     .btn-outline {
@@ -297,9 +395,83 @@
     
     .btn-outline:hover {
       background: #f5f5f5;
+      border-color: #ccc;
+    }
+    
+    /* Recent Activity - Enhanced */
+    .activity-list {
+      list-style: none;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(67, 97, 238, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+    
+    .activity-content {
+      flex: 1;
+    }
+    
+    .activity-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .activity-desc {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    
+    .activity-time {
+      font-size: 0.8rem;
+      color: #999;
     }
     
     /* Responsive Design */
+    @media (max-width: 1200px) {
+      .sidebar {
+        width: var(--sidebar-collapsed-width);
+      }
+      
+      .logo-text, .nav-title, .nav-item span {
+        display: none;
+      }
+      
+      .logo {
+        justify-content: center;
+        padding: 0 10px 25px;
+      }
+      
+      .nav-item {
+        justify-content: center;
+        padding: 15px 0;
+      }
+      
+      .main-content {
+        margin-left: var(--sidebar-collapsed-width);
+      }
+    }
+    
     @media (max-width: 992px) {
       .sidebar {
         transform: translateX(-100%);
@@ -312,15 +484,23 @@
       .main-content {
         margin-left: 0;
       }
-      
-      .menu-toggle {
-        display: block;
-      }
     }
     
     @media (max-width: 768px) {
       .stats-cards {
         grid-template-columns: 1fr;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .section-actions {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 10px;
       }
     }
     
@@ -342,13 +522,17 @@
       animation-delay: 0.2s;
     }
     
+    .stat-card:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+    
     .dashboard-section {
       animation: fadeIn 0.6s ease-out forwards;
     }
   </style>
 </head>
 <body>
-  <!-- Sidebar Navigation
+  <!-- Sidebar Navigation - Redesigned -->
   <aside class="sidebar">
     <div class="logo">
       <div class="logo-icon">
@@ -388,88 +572,16 @@
         <span>Settings</span>
       </a>
     </nav>
-  </aside> -->
-  
-  <!-- Main Content Area -->
-  <main class="main-content">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <div class="page-title">
-        <h1>Admin Dashboard</h1>
-      </div>
-      <div class="user-menu">
-        <div class="user-avatar">AD</div>
-        <button class="logout-btn" onclick="window.location.href='/logout'">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Logout</span>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Dashboard Content -->
-    <div class="content-area">
-      <!-- Stats Cards -->
-      <div class="stats-cards">
-        <div class="stat-card primary">
-          <div class="card-title">Verified NGOs</div>
-          <div class="card-value"><%= verifiedNgos %></div>
-          <div class="card-change positive">
-            <i class="fas fa-arrow-up"></i>
-            <span>12% from last month</span>
-          </div>
-        </div>
-        
-        <div class="stat-card success">
-          <div class="card-title">Active Donors</div>
-          <div class="card-value"><%= activeDonors %></div>
-          <div class="card-change positive">
-            <i class="fas fa-arrow-up"></i>
-            <span>8% from last month</span>
-          </div>
-        </div>
-        
-        <div class="stat-card warning">
-          <div class="card-title">Active Campaigns</div>
-          <div class="card-value"><%= activeCampaigns %></div>
-          <div class="card-change negative">
-            <i class="fas fa-arrow-down"></i>
-            <span>3% from last month</span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Quick Actions Section -->
-      <div class="dashboard-section">
-        <div class="section-header">
-          <h2 class="section-title">Quick Actions</h2>
-        </div>
-        <div class="section-actions">
-          <button class="btn btn-primary" onclick="window.location.href='/admin/verify-ngos'">
-            <i class="fas fa-check-circle"></i>
-            Verify NGOs
-          </button>
-          <button class="btn btn-outline" onclick="window.location.href='/admin/manage-users'">
-            <i class="fas fa-user-cog"></i>
-            Manage Users
-          </button>
-          <button class="btn btn-outline" onclick="window.location.href='/admin/create-campaign'">
-            <i class="fas fa-plus"></i>
-            Create Campaign
-          </button>
-        </div>
-      </div>
-      
-      <!-- Recent Activity Section -->
-      <div class="dashboard-section">
-        <div class="section-header">
-          <h2 class="section-title">Recent Activity</h2>
-          <button class="btn btn-outline">
-            View All
-          </button>
-        </div>
-        <p>Recent admin activities will appear here</p>
-      </div>
-    </div>
-  </main>
+  </aside>
+  <script>
+    // Simple script to handle sidebar toggle on mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      // This would be triggered by a menu button in a real implementation
+      // For now, it's just here for the template
+      function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('active');
+      }
+    });
+  </script>
 </body>
 </html>
