@@ -9,26 +9,31 @@
   <!-- Add Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     :root {
-      --primary-color: #3a86ff;
-      --secondary-color: #8338ec;
-      --accent-color: #ff006e;
-      --dark-color: #1a1a2e;
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --accent-color: #f72585;
+      --dark-color: #14213d;
       --light-color: #f8f9fa;
-      --success-color: #06d6a0;
+      --success-color: #4cc9f0;
+      --gradient: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     }
     
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--light-color);
       color: var(--dark-color);
-      line-height: 1.6;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
     
     h1, h2, h3, h4, h5, h6 {
       font-weight: 700;
+      font-family: 'Playfair Display', serif;
     }
     
     .btn {
@@ -36,53 +41,116 @@
       padding: 12px 28px;
       font-weight: 600;
       transition: all 0.3s ease;
+      letter-spacing: 0.5px;
     }
     
     .btn-primary {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
+      background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      background-size: 200% auto;
+      transition: all 0.5s ease;
     }
     
     .btn-primary:hover {
-      background-color: #2a75e6;
-      border-color: #2a75e6;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+      background-position: right center;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    /* Navigation */
+    .navbar {
+      transition: all 0.3s ease;
+      padding: 15px 0;
+    }
+    
+    .navbar.scrolled {
+      background-color: white !important;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      padding: 10px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     /* About Hero Section */
     .about-hero {
-      background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), 
+      background: linear-gradient(rgba(20, 33, 61, 0.85), rgba(20, 33, 61, 0.9)), 
                   url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       color: white;
-      padding: 120px 0;
+      padding: 150px 0 120px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f8f9fa" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f8f9fa" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f8f9fa"/></svg>');
+      background-size: cover;
+      z-index: 1;
     }
     
     .about-hero h1 {
-      font-size: 3.5rem;
+      font-size: 4rem;
       margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .about-hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 2;
     }
     
     .breadcrumb {
       background: transparent;
       justify-content: center;
+      position: relative;
+      z-index: 2;
     }
     
     .breadcrumb-item a {
       color: rgba(255, 255, 255, 0.8);
       text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .breadcrumb-item a:hover {
+      color: white;
+      transform: translateY(-2px);
     }
     
     .breadcrumb-item.active {
       color: white;
     }
     
+    .breadcrumb-item+.breadcrumb-item::before {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
     /* Our Story Section */
     .our-story {
-      padding: 80px 0;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
     }
     
     .section-title {
@@ -103,81 +171,131 @@
     
     .story-img {
       border-radius: 12px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transform: perspective(1000px) rotateY(-10deg);
+      transition: all 0.5s ease;
+      border: 10px solid white;
+    }
+    
+    .story-img:hover {
+      transform: perspective(1000px) rotateY(0deg);
     }
     
     /* Mission/Vision Section */
     .mission-vision {
       background-color: #f8faff;
-      padding: 80px 0;
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .mission-vision::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ffffff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23ffffff" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ffffff"/></svg>');
+      background-size: cover;
+      background-position: bottom;
+      z-index: 0;
     }
     
     .mission-card {
       background: white;
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       height: 100%;
-      transition: transform 0.3s ease;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+      border: none;
+      overflow: hidden;
+    }
+    
+    .mission-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
     }
     
     .mission-card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     }
     
     .mission-icon {
-      font-size: 3rem;
-      color: var(--primary-color);
-      margin-bottom: 20px;
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     /* Team Section */
     .team-section {
-      padding: 80px 0;
+      padding: 100px 0;
+      background-color: white;
     }
     
     .team-member {
       text-align: center;
       margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+    
+    .team-img-container {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      padding: 8px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      position: relative;
+      box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
     }
     
     .team-img {
-      width: 200px;
-      height: 200px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: 50%;
       border: 5px solid white;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
     }
     
     .team-social {
-      margin-top: 15px;
+      margin-top: 20px;
     }
     
     .team-social a {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 40px;
       height: 40px;
-      background-color: rgba(58, 134, 255, 0.1);
+      background-color: rgba(67, 97, 238, 0.1);
       border-radius: 50%;
-      text-align: center;
-      line-height: 40px;
       color: var(--primary-color);
       margin: 0 5px;
       transition: all 0.3s ease;
     }
     
     .team-social a:hover {
-      background-color: var(--primary-color);
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
       color: white;
+      transform: translateY(-3px);
     }
     
     /* Milestones Section */
     .milestones {
       background: linear-gradient(135deg, var(--dark-color), #16213e);
       color: white;
-      padding: 80px 0;
+      padding: 100px 0;
       position: relative;
       overflow: hidden;
     }
@@ -194,42 +312,122 @@
     
     .milestone-item {
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
       position: relative;
       z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .milestone-item:hover {
+      transform: translateY(-5px);
     }
     
     .milestone-number {
-      font-size: 3.5rem;
+      font-size: 4rem;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--primary-color);
+      margin-bottom: 15px;
+      background: linear-gradient(to right, var(--success-color), var(--primary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     .milestone-text {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      font-weight: 500;
     }
     
     /* Partners Section */
     .partners {
-      padding: 60px 0;
+      padding: 80px 0;
       background-color: white;
     }
     
     .partner-logo {
       height: 80px;
       filter: grayscale(100%);
-      opacity: 0.7;
-      transition: all 0.3s ease;
+      opacity: 0.6;
+      transition: all 0.4s ease;
+      padding: 15px;
     }
     
     .partner-logo:hover {
       filter: grayscale(0);
       opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      background-color: #f8faff;
+      padding: 100px 0;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin: 15px;
+      position: relative;
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 5rem;
+      font-family: 'Playfair Display', serif;
+      color: rgba(67, 97, 238, 0.1);
+      line-height: 1;
+    }
+    
+    .testimonial-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
+      margin-right: 20px;
+    }
+    
+    /* Floating Animations */
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .float-2 {
+      animation: float 5s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    .float-3 {
+      animation: float 7s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
     }
     
     /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .about-hero h1 {
+        font-size: 3rem;
+      }
+      
+      .mission-card {
+        padding: 30px;
+      }
+    }
+    
     @media (max-width: 768px) {
+      .about-hero {
+        padding: 120px 0 100px;
+      }
+      
       .about-hero h1 {
         font-size: 2.5rem;
       }
@@ -239,21 +437,44 @@
       }
       
       .milestone-number {
+        font-size: 3rem;
+      }
+      
+      .team-img-container {
+        width: 180px;
+        height: 180px;
+      }
+      
+      .story-img {
+        transform: none;
+        margin-bottom: 30px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .about-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .milestone-item {
+        padding: 20px 10px;
+      }
+      
+      .milestone-number {
         font-size: 2.5rem;
       }
       
-      .team-img {
-        width: 150px;
-        height: 150px;
+      .mission-icon {
+        font-size: 2.5rem;
       }
     }
   </style>
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold fs-3 text-primary" href="#">NGOConnect</a>
+      <a class="navbar-brand" href="#">NGOConnect</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -266,10 +487,10 @@
             <a class="nav-link active" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/about">NGOs</a>
+            <a class="nav-link" href="/ngos">NGOs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/about">Recommended</a>
+            <a class="nav-link" href="/recommended">Recommended</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/causes">Causes</a>
@@ -291,8 +512,9 @@
   <!-- About Hero Section -->
   <section class="about-hero">
     <div class="container">
-      <h1>About Our Platform</h1>
-      <nav aria-label="breadcrumb">
+      <h1 class="animate__animated animate__fadeInDown">Empowering Change Together</h1>
+      <p class="animate__animated animate__fadeIn animate__delay-1s">We connect compassionate donors with impactful NGOs to create meaningful change in communities worldwide.</p>
+      <nav aria-label="breadcrumb" class="animate__animated animate__fadeIn animate__delay-1s">
         <ol class="breadcrumb justify-content-center">
           <li class="breadcrumb-item"><a href="/">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">About Us</li>
@@ -307,13 +529,16 @@
       <div class="row align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
           <h2 class="section-title">Our Story</h2>
-          <p class="lead">Founded in 2025, NGOConnect began as a small initiative to connect donors with local NGOs working on the ground.</p>
-          <p>Our founders recognized the gap between generous individuals who wanted to help and trustworthy organizations creating real impact. What started as a simple matching platform has grown into a global network of over 85 verified NGOs and thousands of donors.</p>
-          <p>Today, we've facilitated more than $1.2 million in donations to causes ranging from education and healthcare to environmental conservation and disaster relief.</p>
-          <a href="/causes" class="btn btn-primary mt-3">Explore Causes</a>
+          <p class="lead">Founded in 2025, NGOConnect began as a small initiative to bridge the gap between donors and impactful NGOs.</p>
+          <p>Our journey started when our founders witnessed the challenges faced by both donors who wanted to make a difference and NGOs struggling to secure funding. We realized technology could create a transparent, efficient connection between these two groups.</p>
+          <p>What began as a simple matching platform has grown into a global network facilitating millions in donations to causes ranging from education and healthcare to environmental conservation and disaster relief.</p>
+          <div class="d-flex align-items-center mt-4">
+            <a href="/causes" class="btn btn-primary me-3">Explore Causes</a>
+            <a href="#" class="text-primary fw-bold">Watch Our Story <i class="fas fa-play-circle ms-2"></i></a>
+          </div>
         </div>
         <div class="col-lg-6">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Our team working together" class="img-fluid story-img">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Our team working together" class="img-fluid story-img float">
         </div>
       </div>
     </div>
@@ -325,21 +550,31 @@
       <h2 class="section-title">Our Mission & Vision</h2>
       <div class="row g-4">
         <div class="col-md-6">
-          <div class="mission-card">
+          <div class="mission-card h-100">
             <div class="mission-icon">
               <i class="fas fa-bullseye"></i>
             </div>
             <h3>Our Mission</h3>
             <p>To create a transparent, efficient bridge between donors and NGOs, ensuring every contribution makes the maximum possible impact on the causes that matter most.</p>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Ensure transparency in donations</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Verify all partner NGOs</li>
+              <li><i class="fas fa-check-circle text-primary me-2"></i> Provide impact reports to donors</li>
+            </ul>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="mission-card">
+          <div class="mission-card h-100">
             <div class="mission-icon">
               <i class="fas fa-eye"></i>
             </div>
             <h3>Our Vision</h3>
             <p>A world where anyone can easily support trustworthy organizations creating positive change, and where every NGO has access to the resources they need to fulfill their mission.</p>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Global network of verified NGOs</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Real-time impact tracking</li>
+              <li><i class="fas fa-check-circle text-primary me-2"></i> Community of engaged donors</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -350,12 +585,16 @@
   <section class="team-section">
     <div class="container">
       <h2 class="section-title">Meet Our Team</h2>
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
+      <p class="text-center mb-5">Passionate individuals dedicated to making philanthropy accessible and impactful</p>
+      <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 mb-4">
           <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="team-img">
+            <div class="team-img-container float">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="team-img">
+            </div>
             <h4>Sarah Johnson</h4>
             <p class="text-muted">Co-Founder & CEO</p>
+            <p class="small">Former nonprofit director with 15 years of experience in social impact.</p>
             <div class="team-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-twitter"></i></a>
@@ -363,11 +602,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6 mb-4">
           <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen" class="team-img">
+            <div class="team-img-container float-2">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen" class="team-img">
+            </div>
             <h4>Michael Chen</h4>
             <p class="text-muted">CTO</p>
+            <p class="small">Tech entrepreneur focused on solutions for social good.</p>
             <div class="team-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-github"></i></a>
@@ -375,11 +617,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6 mb-4">
           <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Patel" class="team-img">
+            <div class="team-img-container float-3">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Patel" class="team-img">
+            </div>
             <h4>Priya Patel</h4>
             <p class="text-muted">NGO Relations</p>
+            <p class="small">Expert in nonprofit management and impact assessment.</p>
             <div class="team-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-instagram"></i></a>
@@ -387,11 +632,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6 mb-4">
           <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="David Kim" class="team-img">
+            <div class="team-img-container float">
+              <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="David Kim" class="team-img">
+            </div>
             <h4>David Kim</h4>
             <p class="text-muted">Community Manager</p>
+            <p class="small">Connects donors with causes they're passionate about.</p>
             <div class="team-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-twitter"></i></a>
@@ -403,21 +651,60 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">What People Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Lisa Wong" class="testimonial-img">
+              <div>
+                <h5 class="mb-0">Lisa Wong</h5>
+                <small class="text-muted">Donor since 2026</small>
+              </div>
+            </div>
+            <p>"NGOConnect made it so easy to find trustworthy organizations. I love receiving updates about how my donations are being used to create real impact."</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Raj Patel" class="testimonial-img">
+              <div>
+                <h5 class="mb-0">Raj Patel</h5>
+                <small class="text-muted">Director, Green Earth NGO</small>
+              </div>
+            </div>
+            <p>"Through NGOConnect, we've connected with donors who truly care about environmental conservation. The platform has transformed our fundraising efforts."</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="d-flex align-items-center mb-3">
+              <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Maria Garcia" class="testimonial-img">
+              <div>
+                <h5 class="mb-0">Maria Garcia</h5>
+                <small class="text-muted">Corporate Partnerships</small>
+              </div>
+            </div>
+            <p>"Our company uses NGOConnect to manage our corporate giving program. The transparency and reporting features are unmatched."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Milestones Section -->
   <section class="milestones">
     <div class="container">
-      <h2 class="section-title text-white">Our Milestones</h2>
+      <h2 class="section-title text-white">Our Impact</h2>
       <div class="row">
         <div class="col-md-3 col-6">
           <div class="milestone-item">
-            <div class="milestone-number">2025</div>
-            <div class="milestone-text">Founded</div>
-          </div>
-        </div>
-        <div class="col-md-3 col-6">
-          <div class="milestone-item">
-            <div class="milestone-number">50+</div>
-            <div class="milestone-text">NGO Partners</div>
+            <div class="milestone-number">85+</div>
+            <div class="milestone-text">Verified NGOs</div>
           </div>
         </div>
         <div class="col-md-3 col-6">
@@ -428,7 +715,13 @@
         </div>
         <div class="col-md-3 col-6">
           <div class="milestone-item">
-            <div class="milestone-number">1+</div>
+            <div class="milestone-number">12K+</div>
+            <div class="milestone-text">Donors</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="milestone-item">
+            <div class="milestone-number">5</div>
             <div class="milestone-text">Countries</div>
           </div>
         </div>
@@ -460,17 +753,32 @@
     </div>
   </section>
 
+  <!-- CTA Section -->
+  <section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-3 mb-lg-0">
+          <h3 class="mb-2">Ready to make a difference?</h3>
+          <p class="mb-0">Join our community of donors supporting impactful causes today.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="/register" class="btn btn-light">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="bg-dark text-white pt-5 pb-3">
+  <footer class="bg-dark text-white pt-5 pb-4">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 mb-4">
-          <h3 class="h5 mb-3">NGOConnect</h3>
+          <h3 class="h4 mb-3">NGOConnect</h3>
           <p>Connecting donors with impactful NGOs to create positive change worldwide.</p>
-          <div class="social-icons">
-            <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+          <div class="social-icons mt-3">
+            <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
             <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
@@ -496,16 +804,55 @@
           <p><i class="fas fa-map-marker-alt me-2"></i>New Delhi-110001</p>
           <p><i class="fas fa-phone me-2"></i> +91 123-4567</p>
           <p><i class="fas fa-envelope me-2"></i> info@NGOconnect.org</p>
+          <div class="mt-3">
+            <a href="/donate" class="btn btn-outline-light">Make a Donation</a>
+          </div>
         </div>
       </div>
-      <hr class="my-4 bg-light">
-      <div class="text-center">
-        <p class="small mb-0">© 2025 NGOConnect. All rights reserved.</p>
+      <hr class="my-4 bg-secondary">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="small mb-0">© 2025 NGOConnect. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p class="small mb-0">Designed with <i class="fas fa-heart text-danger"></i> for a better world</p>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const animateElements = document.querySelectorAll('.mission-card, .team-member, .milestone-item, .testimonial-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      
+      animateElements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
 </body>
 </html>

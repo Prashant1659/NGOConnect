@@ -516,7 +516,7 @@
             <p class="campaign-description"><%= campaign.description %></p>
             
             <div class="campaign-org">
-              <div class="org-avatar"><%= campaign.ngoName.charAt(0) %></div>
+              <%= campaign.ngoName ? campaign.ngoName.charAt(0) : 'N' %>
               <div class="org-name"><%= campaign.ngoName %></div>
             </div>
             

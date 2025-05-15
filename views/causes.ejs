@@ -1,3 +1,4 @@
+<%- include('partials/head') %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,19 +12,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #2e8b57;
-      --primary-light: #3cb371;
-      --secondary: #1e6f44;
-      --accent: #ff8c00;
-      --dark: #1a3e2c;
-      --light: #f0fff5;
-      --gray: #6c757d;
-      --light-gray: #f8f9fa;
+      --primary: #256f45;
+      --primary-light: #2e8b57;
+      --secondary: #1e5a3b;
+      --accent: #ff7b00;
+      --dark: #1a2e24;
+      --light: #f5fff9;
+      --gray: #5a6d66;
+      --light-gray: #f0f7f3;
+      --card-shadow: 0 12px 20px -10px rgba(34, 111, 74, 0.15);
     }
     
     body {
       font-family: 'Open Sans', sans-serif;
-      background-color: #f8fff8;
+      background-color: #f8fdfa;
       color: var(--dark);
       line-height: 1.6;
     }
@@ -33,265 +35,337 @@
       font-weight: 600;
     }
     
-    .campaign-header {
-      background-size: cover;
-      background-position: center;
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
-      padding: 120px 0 80px;
+      padding: 100px 0 60px;
       margin-bottom: 40px;
+      text-align: center;
       position: relative;
+      overflow: hidden;
     }
     
-    .campaign-title {
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+    }
+    
+    .page-title {
       font-size: 2.8rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
     }
     
-    .campaign-org {
+    .page-subtitle {
       font-size: 1.2rem;
       opacity: 0.9;
-      margin-bottom: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      position: relative;
+      z-index: 1;
     }
     
-    .category-badge {
-      display: inline-block;
-      background-color: var(--accent);
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 1;
     }
     
     .campaign-card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      padding: 30px;
-      margin-bottom: 30px;
-    }
-    
-    .campaign-image {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      max-height: 500px;
-      object-fit: cover;
-    }
-    
-    .section-title {
-      color: var(--primary);
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      padding-bottom: 10px;
-    }
-    
-    .section-title:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--accent);
-    }
-    
-    .campaign-description {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #444;
-    }
-    
-    .campaign-stats {
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin: 30px 0;
+      flex-direction: column;
     }
     
-    .stat-item {
-      text-align: center;
-      padding: 15px;
+    .campaign-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(34, 111, 74, 0.2);
+    }
+    
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
       flex: 1;
-      min-width: 120px;
+      display: flex;
+      flex-direction: column;
     }
     
-    .stat-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary);
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
     }
     
-    .stat-label {
-      font-size: 0.9rem;
+    .card-text {
       color: var(--gray);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+    
+    .organization {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .progress-container {
+      margin: 1rem 0;
     }
     
     .progress {
-      height: 10px;
-      border-radius: 5px;
-      margin: 25px 0;
-      background-color: #e9ecef;
+      height: 8px;
+      border-radius: 4px;
+      background-color: var(--light-gray);
     }
     
     .progress-bar {
       background-color: var(--primary);
-      border-radius: 5px;
     }
     
-    .donate-btn {
-      background-color: var(--accent);
+    .funding-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .raised {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .goal {
+      color: var(--gray);
+    }
+    
+    .btn-view {
+      background-color: var(--primary);
       color: white;
       border: none;
-      padding: 12px;
-      font-size: 1.1rem;
-      font-weight: 600;
+      padding: 0.5rem 1rem;
       border-radius: 8px;
+      font-weight: 500;
       transition: all 0.3s ease;
-      margin-top: 10px;
+      align-self: flex-start;
+      margin-top: auto;
     }
     
-    .donate-btn:hover {
-      background-color: #e67e00;
+    .btn-view:hover {
+      background-color: var(--secondary);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
     }
     
-    .form-control {
-      padding: 12px 15px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      margin-bottom: 15px;
+    .empty-state {
+      padding: 4rem 0;
+      text-align: center;
     }
     
-    .form-control:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+    .empty-icon {
+      font-size: 4rem;
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
     }
     
-    .update-item {
-      padding: 20px;
-      background: var(--light-gray);
-      border-radius: 8px;
-      margin-bottom: 20px;
+    .empty-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
     }
     
-    .update-item h4 {
-      color: var(--secondary);
-      margin-bottom: 10px;
+    .empty-text {
+      color: var(--gray);
+      max-width: 500px;
+      margin: 0 auto;
     }
     
-    .social-share {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
+    .category-filter {
+      margin-bottom: 2rem;
     }
     
-    .social-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .category-btn {
+      border: 1px solid var(--primary-light);
+      color: var(--primary);
+      background: white;
+      border-radius: 20px;
+      padding: 0.4rem 1.2rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    
+    .category-btn:hover, .category-btn.active {
+      background: var(--primary);
       color: white;
-      font-size: 1.1rem;
-      transition: transform 0.3s;
     }
-    
-    .social-btn:hover {
-      transform: translateY(-3px);
-    }
-    
-    .fb { background-color: #3b5998; }
-    .twitter { background-color: #1da1f2; }
-    .linkedin { background-color: #0077b5; }
-    .whatsapp { background-color: #25d366; }
     
     @media (max-width: 768px) {
-      .campaign-title {
-        font-size: 2rem;
+      .page-title {
+        font-size: 2.2rem;
       }
       
-      .campaign-stats {
-        flex-direction: column;
+      .hero-section {
+        padding: 80px 0 40px;
       }
       
-      .stat-item {
-        margin-bottom: 15px;
+      .card-img-top {
+        height: 180px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Campaign Header -->
-  <div class="campaign-header text-center">
-    <div class="campaign-header text-center">
-      <div class="container">
-        <h1 class="campaign-title">Explore Campaigns</h1>
-        <p class="campaign-org">Support causes that matter to you</p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="page-title">Discover Meaningful Causes</h1>
+      <p class="page-subtitle">Support campaigns that align with your values and make a real difference in people's lives</p>
+      
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search campaigns..." aria-label="Search campaigns">
+          <button class="btn btn-light" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
       </div>
     </div>
-    
-    <div class="container py-5">
+  </section>
+
+  <!-- Campaign Listing -->
+  <section class="campaign-listing py-4">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h2 class="h4 mb-3">Browse by category</h2>
+          <div class="category-filter">
+            <button class="btn category-btn active">All</button>
+            <button class="btn category-btn">Education</button>
+            <button class="btn category-btn">Healthcare</button>
+            <button class="btn category-btn">Environment</button>
+            <button class="btn category-btn">Animals</button>
+            <button class="btn category-btn">Community</button>
+            <button class="btn category-btn">Emergency</button>
+          </div>
+        </div>
+      </div>
+      
       <% if (campaigns && campaigns.length > 0) { %>
-        <div class="row">
+        <div class="row g-4">
           <% campaigns.forEach(campaign => { %>
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="card h-100 shadow-sm">
+            <div class="col-md-6 col-lg-4">
+              <div class="campaign-card">
                 <img src="<%= campaign.imageUrl || '/images/placeholder.jpg' %>" 
                      class="card-img-top" 
-                     alt="<%= campaign.title %>" 
-                     style="height: 200px; object-fit: cover;">
+                     alt="<%= campaign.title %>">
                 
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title"><%= campaign.title %></h5>
-                  <p class="card-text text-muted">By <%= campaign.ngoName || 'Unknown Organization' %></p>
-                  <p class="card-text mb-3"><%= campaign.description.substring(0, 100) %>...</p>
-    
-                  <div class="mt-auto">
-                    <p><strong>Goal:</strong> $<%= campaign.goalAmount.toLocaleString() %></p>
-                    <p><strong>Raised:</strong> $<%= campaign.currentAmount.toLocaleString() %></p>
-    
-                    <a href="/campaign/<%= campaign._id %>" class="btn btn-outline-primary w-100 mt-2">View Campaign</a>
+                <div class="card-body">
+                  <span class="badge bg-accent mb-2" style="background-color: var(--accent); color: white;">
+                    <%= campaign.category || 'General' %>
+                  </span>
+                  <h3 class="card-title"><%= campaign.title %></h3>
+                  <p class="organization">
+                    <i class="fas fa-building me-1"></i> <%= campaign.ngoName || 'Nonprofit Organization' %>
+                  </p>
+                  <p class="card-text"><%= campaign.description.substring(0, 120) %>...</p>
+                  
+                  <div class="progress-container">
+                    <div class="progress">
+                      <div class="progress-bar" 
+                           role="progressbar" 
+                           style="width: '<%= (campaign.currentAmount / campaign.goalAmount * 100) %>%'" 
+                           aria-valuenow="<%= campaign.currentAmount %>" 
+                           aria-valuemin="0" 
+                           aria-valuemax="<%= campaign.goalAmount %>">
+                      </div>
+                    </div>
                   </div>
+                  
+                  <div class="funding-info">
+                    <span class="raised">$<%= campaign.currentAmount.toLocaleString() %> raised</span>
+                    <span class="goal">$<%= campaign.goalAmount.toLocaleString() %> goal</span>
+                  </div>
+                  
+                  <a href="/campaign/<%= campaign._id %>" class="btn btn-view">
+                    View Campaign <i class="fas fa-arrow-right ms-1"></i>
+                  </a>
                 </div>
               </div>
             </div>
           <% }); %>
         </div>
       <% } else { %>
-        <div class="text-center py-5">
-          <h3>No Campaigns Found</h3>
-          <p class="text-muted">Check back later for new fundraising opportunities.</p>
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3 class="empty-title">No Campaigns Found</h3>
+          <p class="empty-text">We couldn't find any campaigns matching your criteria. Check back later or try a different search.</p>
+          <a href="/" class="btn btn-primary mt-3">
+            <i class="fas fa-home me-1"></i> Return Home
+          </a>
         </div>
       <% } %>
     </div>
+  </section>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Quick donation amount buttons
-    document.querySelectorAll('.amount-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById('amount').value = btn.dataset.amount;
+    // Category filter functionality
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelector('.category-btn.active').classList.remove('active');
+        this.classList.add('active');
+        // Here you would add logic to filter campaigns
       });
     });
     
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+    // Animation for cards on scroll
+    const animateOnScroll = () => {
+      const cards = document.querySelectorAll('.campaign-card');
+      cards.forEach(card => {
+        const cardPosition = card.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+        
+        if(cardPosition < screenPosition) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
       });
+    };
+    
+    // Initialize cards with opacity 0 for animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.campaign-card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+      });
+      
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll(); // Run once on load
     });
   </script>
 </body>

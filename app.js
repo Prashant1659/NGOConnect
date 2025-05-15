@@ -36,6 +36,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
+const campaignRoutes = require('./routes/campaigns');
+app.use('/', campaignRoutes);
+
 // Routes
 app.use('/', authRoutes);
 app.use('/ngo', ngoRoutes);

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #256f45;
+      --primary-light: #2e8b57;
+      --primary-lighter: #e8f5ee;
+      --secondary: #1e5a3b;
+      --accent: #ff7b00;
+      --accent-light: #ff9a3c;
+      --dark: #1a1e1b;
+      --light: #f8fdfa;
+      --gray: #5a6d66;
+      --light-gray: #f0f7f3;
+      --border-radius: 16px;
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fbfa;
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    .campaign-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+    
+    .campaign-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+    }
+    
+    .campaign-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.1;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .campaign-org {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      font-weight: 500;
+    }
+    
+    .campaign-category {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(255, 123, 0, 0.2);
+    }
+    
+    .campaign-container {
+      margin-top: -80px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .campaign-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 40px;
+      margin-bottom: 32px;
+      border: none;
+      transition: var(--transition);
+    }
+    
+    .campaign-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .campaign-image {
+      width: 100%;
+      border-radius: var(--border-radius);
+      margin-bottom: 40px;
+      max-height: 560px;
+      object-fit: cover;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .campaign-description {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--dark);
+      opacity: 0.9;
+    }
+    
+    .campaign-stats {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 32px;
+      margin: 48px 0;
+      gap: 16px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 16px;
+      flex: 1;
+      min-width: 120px;
+      background: var(--primary-lighter);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(37, 111, 69, 0.1);
+    }
+    
+    .stat-value {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+      font-family: 'Manrope', sans-serif;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    .progress {
+      height: 10px;
+      border-radius: 5px;
+      background-color: #e9ecef;
+    }
+    
+    .progress-bar {
+      background-color: var(--primary);
+      border-radius: 5px;
+    }
+    
+    .donation-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      padding: 32px;
+      position: sticky;
+      top: 32px;
+      border: none;
+      transition: var(--transition);
+    }
+    
+    .donation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .donate-btn {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(255, 123, 0, 0.3);
+    }
+    
+    .donate-btn:hover {
+      background-color: var(--accent-light);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(255, 123, 0, 0.3);
+    }
+    
+    .amount-btn {
+      border: 2px solid var(--light-gray);
+      background: white;
+      color: var(--dark);
+      padding: 12px 24px;
+      margin: 0 8px 12px 0;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .amount-btn:hover, .amount-btn.active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(255, 123, 0, 0.2);
+    }
+    
+    .form-control {
+      padding: 14px 18px;
+      border-radius: var(--border-radius);
+      border: 1px solid #e0e0e0;
+      margin-bottom: 16px;
+      transition: var(--transition);
+      font-size: 1rem;
+      box-shadow: none;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.15);
+    }
+    
+    .update-item {
+      padding: 28px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 24px;
+      transition: var(--transition);
+      border: none;
+    }
+    
+    .update-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .update-item h4 {
+      color: var(--secondary);
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+    }
+    
+    .update-meta {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .social-share {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-4px) scale(1.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    
+    .fb { background-color: #3b5998; }
+    .twitter { background-color: #1da1f2; }
+    .linkedin { background-color: #0077b5; }
+    .whatsapp { background-color: #25d366; }
+    
+    .back-link {
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 32px;
+      transition: all 0.3s;
+      font-weight: 500;
+      gap: 10px;
+      opacity: 0.9;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+    }
+    
+    .back-link:hover {
+      opacity: 1;
+      color: white;
+      background: rgba(255,255,255,0.2);
+      transform: translateX(-4px);
+    }
+    
+    .form-check-input:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .form-check-input:focus {
+      box-shadow: 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+    }
+    
+    .share-label {
+      font-weight: 600;
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    /* Floating animation for hero elements */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    @media (max-width: 1200px) {
+      .campaign-hero {
+        padding: 100px 0 60px;
+      }
+      
+      .campaign-title {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .campaign-hero {
+        padding: 80px 0 40px;
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+      }
+      
+      .campaign-title {
+        font-size: 2.25rem;
+      }
+      
+      .campaign-card, .donation-card {
+        padding: 32px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .campaign-hero {
+        padding: 70px 0 30px;
+      }
+      
+      .campaign-title {
+        font-size: 2rem;
+      }
+      
+      .campaign-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 24px;
+      }
+      
+      .stat-item {
+        min-width: calc(50% - 8px);
+        margin-bottom: 16px;
+      }
+      
+      .campaign-card, .donation-card {
+        padding: 24px;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .campaign-hero {
+        padding: 60px 0 20px;
+      }
+      
+      .campaign-title {
+        font-size: 1.8rem;
+      }
+      
+      .stat-item {
+        min-width: 100%;
+      }
+      
+      .back-link {
+        margin-bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Campaign Hero -->
+  <section class="campaign-hero">
+    <div class="container">
+      <a href="/campaigns" class="back-link floating">
+        <i class="fas fa-arrow-left"></i> Back to campaigns
+      </a>
+      <h1 class="campaign-title"><%= campaign.title %></h1>
+      <p class="campaign-org">By <%= campaign.ngoName %></p>
+      <span class="campaign-category floating"><%= campaign.category %></span>
+    </div>
+  </section>
+
+  <!-- Campaign Content -->
+  <div class="container campaign-container">
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <div class="campaign-card">
+          <img src="<%= campaign.imageUrl || '/images/placeholder.jpg' %>" class="campaign-image" alt="<%= campaign.title %>">
+          
+          <h2 class="section-title">About This <span class="gradient-text">Campaign</span></h2>
+          <div class="campaign-description">
+            <%= campaign.description %>
+          </div>
+          
+          <div class="campaign-stats">
+            <div class="stat-item">
+              <div class="stat-value">$<%= campaign.currentAmount.toLocaleString() %></div>
+              <div class="stat-label">Raised</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value"><%= campaign.donorsCount %></div>
+              <div class="stat-label">Donors</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value"><%= Math.ceil((campaign.currentAmount / campaign.goalAmount) * 100) %>%</div>
+              <div class="stat-label">Funded</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value"><%= campaign.daysLeft %></div>
+              <div class="stat-label">Days Left</div>
+            </div>
+          </div>
+          
+          <div class="progress">
+            <div class="progress-bar" 
+                 role="progressbar" 
+                 style="width: <%= Math.ceil((campaign.currentAmount / campaign.goalAmount) * 100) %>%" 
+                 aria-valuenow="<%= campaign.currentAmount %>" 
+                 aria-valuemin="0" 
+                 aria-valuemax="<%= campaign.goalAmount %>">
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-3">
+            <small class="text-muted">Raised: $<%= campaign.currentAmount.toLocaleString() %></small>
+            <small class="text-muted">Goal: $<%= campaign.goalAmount.toLocaleString() %></small>
+          </div>
+        </div>
+        
+        <!-- Campaign Updates -->
+        <div class="campaign-card">
+          <h2 class="section-title">Latest <span class="gradient-text">Updates</span></h2>
+          <% if (campaign.updates && campaign.updates.length > 0) { %>
+            <% campaign.updates.forEach(update => { %>
+              <div class="update-item">
+                <h4><%= update.title %></h4>
+                <div class="update-meta">
+                  <i class="far fa-calendar-alt"></i>
+                  <span><%= new Date(update.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                </div>
+                <p><%= update.content %></p>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <div class="text-center py-4">
+              <i class="far fa-newspaper fa-3x mb-3" style="color: var(--light-gray);"></i>
+              <p class="text-muted">No updates yet. Check back later!</p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      
+      <!-- Donation Sidebar -->
+      <div class="col-lg-4">
+        <div class="donation-card">
+          <h3 class="section-title">Make a <span class="gradient-text">Donation</span></h3>
+          <p class="mb-4">Your support will make a real difference. Every contribution helps!</p>
+          
+          <div class="quick-amounts mb-4">
+            <button class="amount-btn" data-amount="25">$25</button>
+            <button class="amount-btn" data-amount="50">$50</button>
+            <button class="amount-btn active" data-amount="100">$100</button>
+            <button class="amount-btn" data-amount="250">$250</button>
+            <button class="amount-btn" data-amount="500">$500</button>
+          </div>
+          
+          <form id="donation-form">
+            <div class="form-group">
+              <label for="amount" class="form-label">Other Amount ($)</label>
+              <input type="number" class="form-control" id="amount" value="100" min="1" required>
+            </div>
+            
+            <div class="form-group mt-3">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            
+            <div class="form-group mt-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            
+            <div class="form-check mt-4">
+              <input class="form-check-input" type="checkbox" id="anonymous">
+              <label class="form-check-label" for="anonymous">
+                Donate anonymously
+              </label>
+            </div>
+            
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" id="cover-fees">
+              <label class="form-check-label" for="cover-fees">
+                Cover processing fees (2.9% + $0.30)
+              </label>
+            </div>
+            
+            <button type="submit" class="donate-btn">
+              <i class="fas fa-heart"></i> Donate Now
+            </button>
+          </form>
+          
+          <div class="social-share">
+            <span class="share-label">Share this campaign:</span>
+            <a href="#" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Quick donation amount buttons
+    document.querySelectorAll('.amount-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('amount').value = this.dataset.amount;
+      });
+    });
+    
+    // Form submission
+    document.getElementById('donation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would handle the donation submission
+      const amount = document.getElementById('amount').value;
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const anonymous = document.getElementById('anonymous').checked;
+      const coverFees = document.getElementById('cover-fees').checked;
+      
+      console.log('Donation submitted:', { amount, name, email, anonymous, coverFees });
+      
+      // Show success message
+      const btn = this.querySelector('button[type="submit"]');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> Thank You!';
+      btn.style.backgroundColor = 'var(--primary)';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.backgroundColor = 'var(--accent)';
+        btn.disabled = false;
+      }, 3000);
+    });
+    
+    // Social share buttons
+    document.querySelectorAll('.social-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = window.location.href;
+        const title = document.querySelector('.campaign-title').textContent;
+        
+        if (this.classList.contains('fb')) {
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        } else if (this.classList.contains('twitter')) {
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+        } else if (this.classList.contains('linkedin')) {
+          window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+        } else if (this.classList.contains('whatsapp')) {
+          window.open(`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`, '_blank');
+        }
+      });
+    });
+    
+    // Add floating animation to elements with delay
+    document.querySelectorAll('.floating').forEach((el, index) => {
+      el.style.animationDelay = `${index * 0.2}s`;
+    });
+  </script>
+</body>
+</html>
