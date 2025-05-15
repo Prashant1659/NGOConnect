@@ -4,8 +4,10 @@ const NgoProfile = require('../models/ngoProfile.models');
 const Campaign = require('../models/campaign.models');
 // const Organization = require('../models/organization.models');
 const bcrypt = require('bcrypt');
-exports.home = (req,res) => {
-    res.render('home.ejs');
+exports.home = async (req,res) => {
+  const causes = await Campaign.find()
+  .populate('ngo');
+    res.render('home.ejs',{causes});
 }
 
 exports.getRegister = (req, res) => {
@@ -203,8 +205,9 @@ exports.getCauses = (req,res) => {
   res.render('causes');
 }
 
-exports.getNgos = (req,res) => {
-  res.render('contact');
+exports.getNgos = async(req,res) => {
+  const ngos = await NgoProfile.find({isVerified:true});
+  res.render('ngo/Listngos',{ngos});
 }
 
 exports.getCampaignDetails = async (req, res) => {
