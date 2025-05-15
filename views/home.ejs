@@ -414,58 +414,27 @@
     <div class="container">
       <h2 class="section-title">Featured Causes</h2>
       <div class="row g-4">
-        <div class="col-lg-4 col-md-6">
-          <div class="cause-card">
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Education" class="cause-img">
-            <div class="cause-body">
-              <h3 class="cause-title">Education for All</h3>
-              <p class="cause-text">Support education for children in rural areas and underprivileged communities.</p>
-              <div class="progress">
-                <div class="progress-bar" style="width: 75%"></div>
+        <% causes.forEach(function(cause) { %>
+          <div class="col-lg-4 col-md-6">
+            <div class="cause-card">
+              <img src="<%= cause.image %>" alt="<%= cause.title %>" class="cause-img">
+              <div class="cause-body">
+                <h3 class="cause-title"><%= cause.title %></h3>
+                <p class="cause-text"><%= cause.description %></p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: '<%= cause.percentage %>%'" aria-valuenow="<%= cause.percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span><%= cause.raised %> raised</span>
+                  <span><%= cause.percentage %>%</span>
+                </div>
+                <a href="#" class="btn btn-primary mt-3 w-100">Donate Now</a>
               </div>
-              <div class="d-flex justify-content-between">
-                <span>$15,000 raised</span>
-                <span>75%</span>
-              </div>
-              <a href="#" class="btn btn-primary mt-3 w-100">Donate Now</a>
             </div>
           </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="cause-card">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Medical" class="cause-img">
-            <div class="cause-body">
-              <h3 class="cause-title">Medical Aid</h3>
-              <p class="cause-text">Fund medical treatments and provide healthcare for those in need.</p>
-              <div class="progress">
-                <div class="progress-bar" style="width: 45%"></div>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>$9,000 raised</span>
-                <span>45%</span>
-              </div>
-              <a href="#" class="btn btn-primary mt-3 w-100">Donate Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="cause-card">
-            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Food" class="cause-img">
-            <div class="cause-body">
-              <h3 class="cause-title">Hunger Relief</h3>
-              <p class="cause-text">Help provide food and essentials to the homeless and hungry communities.</p>
-              <div class="progress">
-                <div class="progress-bar" style="width: 60%"></div>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>$12,000 raised</span>
-                <span>60%</span>
-              </div>
-              <a href="#" class="btn btn-primary mt-3 w-100">Donate Now</a>
-            </div>
-          </div>
-        </div>
+        <% }); %>
       </div>
+      
       <div class="text-center mt-5">
         <a href="#" class="btn btn-outline-primary">View All Causes</a>
       </div>

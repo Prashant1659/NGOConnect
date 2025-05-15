@@ -29,8 +29,5 @@ router.get('/ngos', authController.getNgos);
 router.get('/campaigns/:id', authController.getCampaignDetails);
 router.get('/causes', authController.getCauses);
 router.get('/causes/:id', authController.getCauseById);
-// router.get('/campaigns/:id', authController.getCampaignDetails);
-// router.get('/causes/:id', authController.getCauseById); 
-// router.get('/campaigns/:id', authController.getCampaignDetails);
 
 module.exports = router;

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All NGOs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .cause-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .cause-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    .cause-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .cause-body {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="mb-4 text-center">Our Partner NGOs (<%= ngos.length %>)</h2>
+    <div class="row g-4">
+      <% ngos.forEach(function(ngo) { %>
+        <div class="col-lg-4 col-md-6">
+          <div class="cause-card">
+            <img src="<%= ngo.image %>" alt="<%= ngo.name %>" class="cause-img">
+            <div class="cause-body">
+              <h3 class="cause-title"><%= ngo.name %></h3>
+              <p class="cause-text"><%= ngo.description %></p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: '<%= ngo.percentage %>%'" aria-valuenow="<%= ngo.percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div class="d-flex justify-content-between mt-1">
+                <span><%= ngo.raised %> raised</span>
+                <span><%= ngo.percentage %>%</span>
+              </div>
+              <a href="#" class="btn btn-primary mt-3 w-100">Donate Now</a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
