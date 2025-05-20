@@ -29,4 +29,16 @@ router.get('/campaign/:id', async (req, res) => {
   }
 });
 
+router.get('/campaign/:id', async (req, res) => {
+  try {
+    const campaign = await getCampaignById(req.params.id);
+    // Ensure milestones exists
+    campaign.milestones = campaign.milestones || [];
+    res.render('campaign', { campaign });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

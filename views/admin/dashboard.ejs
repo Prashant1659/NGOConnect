@@ -13,16 +13,25 @@
     :root {
       --primary: #4361ee;
       --primary-light: #4895ef;
+      --primary-dark: #3a0ca3;
       --secondary: #3f37c9;
       --accent: #f72585;
+      --accent-light: #ff70a5;
       --dark: #1a1a2e;
+      --dark-light: #2d2d44;
       --light: #f8f9fa;
+      --light-gray: #f1f5f9;
+      --gray: #e2e8f0;
       --success: #4cc9f0;
+      --success-light: #90e0ef;
       --warning: #f8961e;
+      --warning-light: #ffb347;
       --danger: #ef233c;
+      --danger-light: #ff6b6b;
       --sidebar-width: 280px;
-      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
       --elevated-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --neumorphic-shadow: 8px 8px 16px #d9d9d9, -8px -8px 16px #ffffff;
     }
     
     * {
@@ -37,12 +46,13 @@
       color: var(--dark);
       min-height: 100vh;
       display: flex;
+      line-height: 1.6;
     }
     
     /* Modern Sidebar */
     .sidebar {
       width: var(--sidebar-width);
-      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
       padding: 30px 0;
       position: fixed;
       height: 100vh;
@@ -70,12 +80,14 @@
       justify-content: center;
       color: white;
       font-size: 1.2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     .logo-text {
       font-size: 1.3rem;
       font-weight: 700;
       color: white;
+      letter-spacing: 0.5px;
     }
     
     .nav-menu {
@@ -115,6 +127,7 @@
       background: rgba(67, 97, 238, 0.2);
       color: white;
       font-weight: 600;
+      backdrop-filter: blur(5px);
     }
     
     .nav-item.active i {
@@ -149,13 +162,26 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--light-gray);
     }
     
     .page-title h1 {
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .page-title h1::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
     }
     
     .user-menu {
@@ -176,6 +202,7 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     .user-avatar:hover {
@@ -199,7 +226,7 @@
     }
     
     .logout-btn:hover {
-      background: #f1f5f9;
+      background: var(--light-gray);
       color: var(--danger);
     }
     
@@ -220,10 +247,12 @@
       border-radius: 16px;
       padding: 25px;
       box-shadow: var(--card-shadow);
-      transition: all 0.3s ease;
-      border: 1px solid #f1f5f9;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid var(--light-gray);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     
     .stat-card::before {
@@ -249,11 +278,18 @@
       background: var(--warning);
     }
     
+    .stat-card.danger::before {
+      background: var(--danger);
+    }
+    
     .stat-card .card-title {
       font-size: 0.9rem;
       color: #64748b;
       margin-bottom: 12px;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .stat-card .card-value {
@@ -261,6 +297,7 @@
       font-weight: 700;
       margin-bottom: 8px;
       color: var(--dark);
+      letter-spacing: -1px;
     }
     
     .stat-card .card-change {
@@ -268,6 +305,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-top: auto;
+      padding-top: 10px;
     }
     
     .stat-card .card-change.positive {
@@ -278,6 +317,37 @@
       color: var(--danger);
     }
     
+    .card-icon {
+      position: absolute;
+      right: 25px;
+      top: 25px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      opacity: 0.2;
+    }
+    
+    .stat-card.success .card-icon {
+      background: var(--success);
+    }
+    
+    .stat-card.warning .card-icon {
+      background: var(--warning);
+    }
+    
+    .stat-card.danger .card-icon {
+      background: var(--danger);
+    }
+    
+    .stat-card .card-icon {
+      background: var(--primary);
+    }
+    
     /* Modern Sections */
     .dashboard-section {
       background: white;
@@ -285,7 +355,12 @@
       padding: 25px;
       margin-bottom: 30px;
       box-shadow: var(--card-shadow);
-      border: 1px solid #f1f5f9;
+      border: 1px solid var(--light-gray);
+      transition: all 0.3s ease;
+    }
+    
+    .dashboard-section:hover {
+      box-shadow: var(--elevated-shadow);
     }
     
     .section-header {
@@ -299,6 +374,19 @@
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--dark);
+      position: relative;
+      padding-bottom: 8px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
     }
     
     .section-actions {
@@ -327,22 +415,33 @@
     }
     
     .btn-primary:hover {
-      background: var(--secondary);
+      background: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: 0 10px 15px -3px rgba(67, 97, 238, 0.3), 0 4px 6px -2px rgba(67, 97, 238, 0.1);
     }
     
     .btn-outline {
       background: transparent;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--gray);
       color: #475569;
       transition: all 0.3s ease;
     }
     
     .btn-outline:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
+      background: var(--light-gray);
+      border-color: var(--gray);
       color: var(--dark);
+      transform: translateY(-2px);
+    }
+    
+    .btn-success {
+      background: var(--success);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(76, 201, 240, 0.3);
+    }
+    
+    .btn-success:hover {
+      background: var(--success-light);
       transform: translateY(-2px);
     }
     
@@ -360,22 +459,56 @@
       padding: 16px;
       border-radius: 12px;
       transition: all 0.3s ease;
+      position: relative;
     }
     
     .activity-item:hover {
-      background: #f8fafc;
+      background: var(--light-gray);
+    }
+    
+    .activity-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .activity-item:hover::before {
+      opacity: 1;
     }
     
     .activity-icon {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      background: #f1f5f9;
+      border-radius: 12px;
+      background: var(--light-gray);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary);
       flex-shrink: 0;
+      font-size: 1rem;
+    }
+    
+    .activity-item.success .activity-icon {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .activity-item.warning .activity-icon {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .activity-item.danger .activity-icon {
+      background: rgba(239, 35, 60, 0.1);
+      color: var(--danger);
     }
     
     .activity-content {
@@ -386,6 +519,29 @@
       font-weight: 600;
       margin-bottom: 4px;
       color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .activity-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--primary);
+      color: white;
+    }
+    
+    .activity-item.success .activity-badge {
+      background: var(--success);
+    }
+    
+    .activity-item.warning .activity-badge {
+      background: var(--warning);
+    }
+    
+    .activity-item.danger .activity-badge {
+      background: var(--danger);
     }
     
     .activity-description {
@@ -397,6 +553,9 @@
     .activity-time {
       font-size: 0.8rem;
       color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     /* Responsive Design */
@@ -430,6 +589,11 @@
       .content-area {
         padding: 20px;
       }
+      
+      .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
     }
     
     /* Animation */
@@ -440,18 +604,32 @@
     
     .stat-card {
       animation: fadeIn 0.5s ease-out forwards;
+      opacity: 0;
     }
     
-    .stat-card:nth-child(2) {
+    .stat-card:nth-child(1) {
       animation-delay: 0.1s;
     }
     
-    .stat-card:nth-child(3) {
+    .stat-card:nth-child(2) {
       animation-delay: 0.2s;
+    }
+    
+    .stat-card:nth-child(3) {
+      animation-delay: 0.3s;
     }
     
     .dashboard-section {
       animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .dashboard-section:nth-child(1) {
+      animation-delay: 0.4s;
+    }
+    
+    .dashboard-section:nth-child(2) {
+      animation-delay: 0.5s;
     }
     
     /* Modern Scrollbar */
@@ -472,6 +650,64 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+    
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .badge-primary {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+    }
+    
+    .badge-success {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .badge-warning {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .badge-danger {
+      background: rgba(239, 35, 60, 0.1);
+      color: var(--danger);
+    }
+    
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: var(--dark);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -484,7 +720,7 @@
         <h1>Admin Dashboard</h1>
       </div>
       <div class="user-menu">
-        <div class="user-avatar">AD</div>
+        <div class="user-avatar tooltip" title="Admin User">AD</div>
         <button class="logout-btn" onclick="window.location.href='/logout'">
           <i class="fas fa-sign-out-alt"></i>
           <span>Logout</span>
@@ -497,29 +733,47 @@
       <!-- Stats Cards -->
       <div class="stats-cards">
         <div class="stat-card">
-          <div class="card-title">Verified NGOs</div>
+          <div class="card-title">
+            <i class="fas fa-check-circle"></i>
+            Verified NGOs
+          </div>
           <div class="card-value"><%= verifiedNgos %></div>
           <div class="card-change positive">
             <i class="fas fa-arrow-up"></i>
             <span>12% from last month</span>
           </div>
+          <div class="card-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
         </div>
         
         <div class="stat-card success">
-          <div class="card-title">Active Donors</div>
+          <div class="card-title">
+            <i class="fas fa-heart"></i>
+            Active Donors
+          </div>
           <div class="card-value"><%= activeDonors %></div>
           <div class="card-change positive">
             <i class="fas fa-arrow-up"></i>
             <span>8% from last month</span>
           </div>
+          <div class="card-icon">
+            <i class="fas fa-users"></i>
+          </div>
         </div>
         
         <div class="stat-card warning">
-          <div class="card-title">Active Campaigns</div>
+          <div class="card-title">
+            <i class="fas fa-bullhorn"></i>
+            Active Campaigns
+          </div>
           <div class="card-value"><%= activeCampaigns %></div>
           <div class="card-change negative">
             <i class="fas fa-arrow-down"></i>
             <span>3% from last month</span>
+          </div>
+          <div class="card-icon">
+            <i class="fas fa-campaignbell"></i>
           </div>
         </div>
       </div>
@@ -538,7 +792,7 @@
             <i class="fas fa-users-cog"></i>
             Manage Users
           </button>
-          <button class="btn btn-outline" onclick="window.location.href='/admin/create-campaign'">
+          <button class="btn btn-success" onclick="window.location.href='/admin/create-campaign'">
             <i class="fas fa-plus"></i>
             Create Campaign
           </button>
@@ -554,18 +808,25 @@
         <div class="section-header">
           <h2 class="section-title">Recent Activity</h2>
           <button class="btn btn-outline">
+            <i class="fas fa-history"></i>
             View All
           </button>
         </div>
         <div class="activity-feed">
-          <div class="activity-item">
+          <div class="activity-item success">
             <div class="activity-icon">
               <i class="fas fa-user-check"></i>
             </div>
             <div class="activity-content">
-              <div class="activity-title">New NGO Approved</div>
-              <div class="activity-description">"Helping Hands Foundation" has been verified and approved</div>
-              <div class="activity-time">2 hours ago</div>
+              <div class="activity-title">
+                New NGO Approved
+                <span class="activity-badge">Verified</span>
+              </div>
+              <div class="activity-description">"Helping Hands Foundation" has been verified and approved by admin</div>
+              <div class="activity-time">
+                <i class="far fa-clock"></i>
+                2 hours ago
+              </div>
             </div>
           </div>
           <div class="activity-item">
@@ -573,19 +834,47 @@
               <i class="fas fa-donate"></i>
             </div>
             <div class="activity-content">
-              <div class="activity-title">Donation Received</div>
-              <div class="activity-description">$5,000 donation for "Education for All" campaign</div>
-              <div class="activity-time">5 hours ago</div>
+              <div class="activity-title">
+                Donation Received
+                <span class="badge badge-primary">Finance</span>
+              </div>
+              <div class="activity-description">$5,000 donation for "Education for All" campaign from anonymous donor</div>
+              <div class="activity-time">
+                <i class="far fa-clock"></i>
+                5 hours ago
+              </div>
             </div>
           </div>
-          <div class="activity-item">
+          <div class="activity-item danger">
             <div class="activity-icon">
               <i class="fas fa-user-slash"></i>
             </div>
             <div class="activity-content">
-              <div class="activity-title">User Suspended</div>
-              <div class="activity-description">User #2345 has been suspended for policy violation</div>
-              <div class="activity-time">Yesterday</div>
+              <div class="activity-title">
+                User Suspended
+                <span class="activity-badge">Action</span>
+              </div>
+              <div class="activity-description">User #2345 (john_doe) has been suspended for policy violation</div>
+              <div class="activity-time">
+                <i class="far fa-clock"></i>
+                Yesterday
+              </div>
+            </div>
+          </div>
+          <div class="activity-item warning">
+            <div class="activity-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-title">
+                Campaign Warning
+                <span class="badge badge-warning">Alert</span>
+              </div>
+              <div class="activity-description">"Clean Water Initiative" campaign is approaching its deadline with 30% funding</div>
+              <div class="activity-time">
+                <i class="far fa-clock"></i>
+                1 day ago
+              </div>
             </div>
           </div>
         </div>

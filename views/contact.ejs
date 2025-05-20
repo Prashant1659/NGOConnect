@@ -1,3 +1,4 @@
+<%- include('partials/head') %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,174 +10,185 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #3a86ff;
-      --secondary-color: #8338ec;
-      --accent-color: #ff006e;
-      --dark-color: #1a1a2e;
-      --light-color: #f8f9fa;
-      --success-color: #06d6a0;
+      --primary-color: #2563eb;
+      --primary-light: #3b82f6;
+      --secondary-color: #7c3aed;
+      --accent-color: #ec4899;
+      --dark-color: #1e293b;
+      --light-color: #f8fafc;
+      --success-color: #10b981;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--light-color);
-      color: var(--dark-color);
+      font-family: 'Inter', sans-serif;
+      color: #334155;
       line-height: 1.6;
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: 700;
-    }
-    
-    .btn {
-      border-radius: 50px;
-      padding: 12px 28px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-    
-    .btn-primary:hover {
-      background-color: #2a75e6;
-      border-color: #2a75e6;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
-    }
-    
-    /* Navigation */
-    .navbar {
-      padding: 20px 0;
-      background-color: white;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: var(--primary-color);
-    }
-    
-    .nav-link {
-      font-weight: 500;
-      margin: 0 10px;
-      color: var(--dark-color);
-    }
-    
-    .nav-link:hover {
-      color: var(--primary-color);
+      background-color: #f8fafc;
     }
     
     /* Contact Hero */
     .contact-hero {
-      background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), 
+      background: linear-gradient(rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.9)), 
                   url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       color: white;
-      padding: 100px 0;
+      padding: 120px 0 80px;
       text-align: center;
+      position: relative;
+    }
+    
+    .contact-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom right, transparent 49%, #f8fafc 50%);
     }
     
     .contact-hero h1 {
       font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 20px;
+      letter-spacing: -0.025em;
     }
     
-    .breadcrumb {
-      background: transparent;
-      justify-content: center;
-    }
-    
-    .breadcrumb-item a {
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-    }
-    
-    .breadcrumb-item.active {
-      color: white;
+    .contact-hero p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
     }
     
     /* Contact Section */
     .contact-section {
-      padding: 80px 0;
+      padding: 100px 0;
     }
     
     .section-title {
       text-align: center;
       margin-bottom: 60px;
-      position: relative;
     }
     
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-      margin: 20px auto 0;
-      border-radius: 2px;
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: -0.025em;
+      color: var(--dark-color);
     }
     
+    .section-title p {
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Contact Cards */
     .contact-card {
       background: white;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border-radius: var(--border-radius);
+      padding: 40px 30px;
+      box-shadow: var(--box-shadow);
       height: 100%;
-      transition: transform 0.3s ease;
+      transition: var(--transition);
+      border: 1px solid #e2e8f0;
+      text-align: center;
     }
     
     .contact-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: var(--primary-light);
     }
     
     .contact-icon {
-      font-size: 2.5rem;
-      color: var(--primary-color);
-      margin-bottom: 20px;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      font-size: 1.75rem;
+    }
+    
+    .contact-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+    }
+    
+    .contact-card p {
+      color: #64748b;
+      margin-bottom: 0;
     }
     
     /* Contact Form */
-    .contact-form {
+    .contact-form-container {
       background: white;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border-radius: var(--border-radius);
+      padding: 50px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid #e2e8f0;
+    }
+    
+    .contact-form h3 {
+      font-size: 1.75rem;
+      margin-bottom: 25px;
+      color: var(--dark-color);
     }
     
     .form-control {
       padding: 15px;
       border-radius: 8px;
-      border: 1px solid #e1e1e1;
+      border: 1px solid #e2e8f0;
       margin-bottom: 20px;
+      transition: var(--transition);
     }
     
     .form-control:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.25);
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
     
     textarea.form-control {
       min-height: 150px;
     }
     
-    /* Map Section */
-    .map-section {
-      padding: 0 0 80px;
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: var(--transition);
     }
     
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    /* Map Section */
     .map-container {
-      border-radius: 12px;
+      border-radius: var(--border-radius);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      height: 400px;
+      box-shadow: var(--box-shadow);
+      height: 100%;
+      min-height: 400px;
+      border: 1px solid #e2e8f0;
     }
     
     .map-container iframe {
@@ -187,22 +199,26 @@
     
     /* FAQ Section */
     .faq-section {
-      padding: 80px 0;
-      background-color: #f8faff;
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .accordion {
+      --bs-accordion-border-color: #e2e8f0;
+      --bs-accordion-btn-focus-box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
     
     .accordion-item {
-      border: none;
       border-radius: 8px !important;
       margin-bottom: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
       overflow: hidden;
     }
     
     .accordion-button {
       font-weight: 600;
       padding: 20px;
-      border-radius: 8px 8px 0 0 !important;
+      color: var(--dark-color);
     }
     
     .accordion-button:not(.collapsed) {
@@ -213,18 +229,18 @@
     
     .accordion-button:focus {
       box-shadow: none;
-      border-color: transparent;
     }
     
     .accordion-body {
-      padding: 20px;
+      padding: 0 20px 20px;
+      color: #64748b;
     }
     
     /* Footer */
     .footer {
       background-color: var(--dark-color);
       color: white;
-      padding: 60px 0 20px;
+      padding: 80px 0 30px;
     }
     
     .footer-logo {
@@ -235,10 +251,15 @@
       display: inline-block;
     }
     
+    .footer p {
+      color: #94a3b8;
+    }
+    
     .footer-links h5 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 20px;
       color: white;
+      font-weight: 600;
     }
     
     .footer-links ul {
@@ -247,34 +268,35 @@
     }
     
     .footer-links li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     
     .footer-links a {
-      color: #aaa;
+      color: #94a3b8;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: var(--transition);
     }
     
     .footer-links a:hover {
       color: white;
+      padding-left: 5px;
     }
     
     .social-icons {
-      margin-top: 20px;
+      margin-top: 25px;
     }
     
     .social-icons a {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 40px;
       height: 40px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      text-align: center;
-      line-height: 40px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
       color: white;
       margin-right: 10px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
     
     .social-icons a:hover {
@@ -283,83 +305,69 @@
     }
     
     .copyright {
-      margin-top: 40px;
+      margin-top: 60px;
       padding-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #aaa;
+      color: #94a3b8;
       font-size: 0.9rem;
     }
     
     /* Responsive Adjustments */
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       .contact-hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.75rem;
       }
       
-      .section-title {
-        margin-bottom: 40px;
+      .contact-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .contact-form-container {
+        padding: 35px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .contact-hero {
+        padding: 80px 0 60px;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2.25rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
       }
       
       .contact-card {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
       
-      .map-container {
-        height: 300px;
+      .contact-form-container {
+        margin-bottom: 40px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">GiveHope</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/causes">Causes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/contact">Contact</a>
-          </li>
-          <li class="nav-item ms-lg-3">
-            <a class="btn btn-primary" href="/login">Login</a>
-          </li>
-          <li class="nav-item ms-lg-2">
-            <a class="btn btn-outline-primary" href="/register">Register</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
   <!-- Contact Hero -->
   <section class="contact-hero">
     <div class="container">
-      <h1>Get In Touch</h1>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb justify-content-center">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Contact</li>
-        </ol>
-      </nav>
+      <h1>We'd Love to Hear From You</h1>
+      <p class="lead">Have questions about donations, partnerships, or our work? Reach out to our team—we're here to help you make a difference.</p>
     </div>
   </section>
 
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="container">
-      <h2 class="section-title">Contact Us</h2>
+      <div class="section-title">
+        <h2>Get In Touch</h2>
+        <p>Our team is ready to assist you with any questions about donations, partnerships, or our initiatives.</p>
+      </div>
+      
       <div class="row g-4 mb-5">
         <div class="col-md-4">
           <div class="contact-card">
@@ -390,23 +398,25 @@
         </div>
       </div>
       
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="contact-form">
-            <h3 class="mb-4">Send Us a Message</h3>
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Your Name" required>
+          <div class="contact-form-container">
+            <div class="contact-form">
+              <h3>Send Us a Message</h3>
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <input type="email" class="form-control" placeholder="Your Email" required>
-                </div>
-              </div>
-              <input type="text" class="form-control" placeholder="Subject">
-              <textarea class="form-control" placeholder="Your Message" required></textarea>
-              <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+                <input type="text" class="form-control" placeholder="Subject">
+                <textarea class="form-control" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+              </form>
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
@@ -421,7 +431,11 @@
   <!-- FAQ Section -->
   <section class="faq-section">
     <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Find quick answers to common questions about donations and partnerships.</p>
+      </div>
+      
       <div class="row justify-content-center">
         <div class="col-lg-8">
           <div class="accordion" id="faqAccordion">
@@ -433,10 +447,11 @@
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
-                  You can donate by browsing our causes page, selecting a campaign you'd like to support, and clicking the "Donate Now" button. You'll be guided through our secure payment process.
+                  <p>You can donate by browsing our causes page, selecting a campaign you'd like to support, and clicking the "Donate Now" button. We accept all major credit cards, PayPal, and bank transfers. You'll receive an immediate confirmation and tax receipt via email.</p>
                 </div>
               </div>
             </div>
+            
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
@@ -445,10 +460,11 @@
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
-                  We work only with verified NGOs that provide regular impact reports. You'll receive updates on how your donation is being used, and all our partner organizations undergo strict vetting processes.
+                  <p>We maintain complete transparency with our donors. All partner NGOs undergo rigorous vetting and must provide regular impact reports. You'll receive updates on the specific project you supported, including photos and stories of impact. Our financials are independently audited annually.</p>
                 </div>
               </div>
             </div>
+            
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
@@ -457,10 +473,11 @@
               </h2>
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
-                  Yes, all donations are tax-deductible in the United States. You'll automatically receive a receipt via email that you can use for tax purposes.
+                  <p>Yes, all donations are tax-deductible to the fullest extent allowed by law. You'll automatically receive a detailed receipt via email immediately after your donation. For recurring donations, you'll receive a consolidated annual statement each January.</p>
                 </div>
               </div>
             </div>
+            
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingFour">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
@@ -469,7 +486,7 @@
               </h2>
               <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
                 <div class="accordion-body">
-                  We'd love to work with you! Please email partnerships@givehope.org with information about your organization, and our team will guide you through the onboarding process.
+                  <p>We welcome applications from registered non-profits worldwide. Our partnership team reviews each application carefully to ensure alignment with our mission and standards. Please visit our "For NGOs" section to start the application process or email partnerships@givehope.org for more information.</p>
                 </div>
               </div>
             </div>
@@ -479,61 +496,9 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 mb-5 mb-lg-0">
-          <a href="#" class="footer-logo">GiveHope</a>
-          <p>Connecting generous donors with impactful NGOs to create positive change in communities around the world.</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-          <div class="footer-links">
-            <h5>Quick Links</h5>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Causes</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-          <div class="footer-links">
-            <h5>Support</h5>
-            <ul>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4">
-          <div class="footer-links">
-            <h5>Contact Us</h5>
-            <ul>
-              <li><i class="fas fa-map-marker-alt me-2"></i> 123 Charity St, Hope City</li>
-              <li><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</li>
-              <li><i class="fas fa-envelope me-2"></i> info@givehope.org</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="copyright text-center">
-        <p>© 2025 GiveHope. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<%- include('partials/footer') %>
