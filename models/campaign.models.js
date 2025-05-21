@@ -8,6 +8,8 @@ const campaignSchema = new mongoose.Schema({
   currentAmount: { type: Number, default: 0 }, // Updates as donations come
   usageDescription: String, // For donors to see how funds will be used
   ngoName:{type:String,required:true},
+  filePath:{type:String,required:true},
+  endDate:{type:Date,required:true},
   status: { type: String, enum: ['active', 'completed'], default: 'active' },
   createdAt: { type: Date, default: Date.now }
 });

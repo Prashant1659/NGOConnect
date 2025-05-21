@@ -16,4 +16,6 @@ router.get('/campaigns',ngoController.Campaigns );
 
 router.get('/register',ngoController.getRegister);
 router.post('/register',ngoController.postRegister);
+
+// router.get('/profile')
 module.exports = router;

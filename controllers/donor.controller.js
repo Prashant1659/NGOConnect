@@ -28,7 +28,6 @@ exports.getDonatePage = async (req, res) => {
   
   // Make donation
   exports.postDonate = async (req, res) => {
-    console.log(req.body);
     let { amount, customAmount } = req.body;
     if(!amount) amount = customAmount;
     const campaignId = req.params.id;
