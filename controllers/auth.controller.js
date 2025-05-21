@@ -3,6 +3,8 @@ const User = require('../models/user.models');
 const NgoProfile = require('../models/ngoProfile.models');
 const Campaign = require('../models/campaign.models');
 // const Organization = require('../models/organization.models');
+const { uploadOnCloudinary } = require('../utils/cloudinary');
+const fs = require('fs');
 const bcrypt = require('bcrypt');
 exports.home = async (req,res) => {
   const causes = await Campaign.find()
@@ -18,7 +20,10 @@ exports.getRegister = (req, res) => {
 exports.postRegister = async (req, res) => {
   try {
     // console.log("req : ",req);
-    // console.log("res : ",res);
+    // console.log("req.files : ",req.files);
+    const path = await req.files.registrationCertificate[0].path;;
+    const response = await uploadOnCloudinary(path);
+    if(response) fs.unlinkSync(path);
     // Destructure with default values to prevent undefined errors
     // console.log("req.body : ",req.body);
     const {
@@ -62,7 +67,7 @@ exports.postRegister = async (req, res) => {
     if (req.files?.logo) {
       logoPath = `/uploads/${req.files.logo[0].filename}`;
     }
-    
+    console.log('logo',logoPath);
 
     // Create new user
     const newUser = new User({
@@ -81,7 +86,8 @@ exports.postRegister = async (req, res) => {
         organizationType,
         registrationNumber,
         website,
-        logo: logoPath
+        logo: logoPath,
+        certificate:response.url
       })
 
       await newNgo.save();

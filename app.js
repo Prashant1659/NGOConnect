@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 const campaignRoutes = require('./routes/campaigns');
-app.use('/', campaignRoutes);
+app.use('/campaign', campaignRoutes);
 
 // Routes
 app.use('/', authRoutes);

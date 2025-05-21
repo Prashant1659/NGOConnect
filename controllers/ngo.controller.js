@@ -2,24 +2,36 @@ const Campaign = require('../models/campaign.models');
 const Donation = require('../models/donation.models');
 const NgoProfile = require('../models/ngoProfile.models');
 const bcrypt = require('bcrypt');
+const { uploadOnCloudinary } = require('../utils/cloudinary');
+const fs = require('fs');
 // Dashboard
 
 // Dashboard
 exports.dashboard = async (req, res) => {
   try {
     const ngoProfile = await NgoProfile.findOne({ user: req.session.userId });
-    const campaigns = await Campaign.find({ ngo: ngoProfile._id });
+    const campaigns = await Campaign.find({ ngo: ngoProfile.user });
+    const today = new Date();
+    const activeCampaigns = campaigns.filter(campaign => new Date(campaign.endDate) >= today);
+    const completed = campaigns.length-activeCampaigns.length;
+    // console.log('ngo',ngoProfile);
+    // console.log('campaigns',campaigns);
     // const totalFundsRaised = await Donation.aggregate([
-    //   { $match: { ngo: ngoProfile._id } },
+    //   { $match: { campaign: { $in: campaigns } } },
     //   { $group: { _id: null, total: { $sum: "$amount" } } }
     // ]);
-
+    let sum =0;
+    await campaigns.forEach((camp)=>{
+      sum+=camp.currentAmount;
+    })
+    // console.log('totalfund',totalFundsRaised);
     res.render('ngo/dashboard', { 
       ngoProfile, 
-      campaigns, 
-      // totalFundsRaised: totalFundsRaised[0]?.total || 0 
-      totalFundsRaised:0
-    });
+      campaigns:activeCampaigns, 
+      totalFundsRaised:sum,
+      completed
+      // totalFundsRaised:0
+    })
   } catch (err) {
     console.error(err);
     res.redirect('/ngo/dashboard');
@@ -34,17 +46,23 @@ exports.getCreateCampaign = (req, res) => {
 
 // Post Campaign Creation
 exports.postCreateCampaign = async (req, res) => {
-  // console.log(req);
-  const { title, description, goalAmount, usageDescription } = req.body;
+  const { title, description, goalAmount, usageDescription,endDate,story } = req.body;
   try {
     const ngo = await NgoProfile.find({user:req.session.userId});
+    const path = await req.file.path;
+    const response = await uploadOnCloudinary(path);
+    if(response) fs.unlinkSync(path);
+    // console.log('response',response);
     const campaign = new Campaign({
       ngo: req.session.userId,
       title,
       ngoName:ngo[0].organizationName,
       description,
       goalAmount,
-      usageDescription
+      usageDescription,
+      endDate,
+      story,
+      filePath:response.url
     });
     await campaign.save();
     res.redirect('/ngo/dashboard');

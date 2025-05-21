@@ -133,14 +133,18 @@
       margin: 1rem 0;
     }
     
-    .progress {
+    .progress-bar {
       height: 8px;
+      background: var(--light-gray);
       border-radius: 4px;
-      background-color: var(--light-gray);
+      overflow: hidden;
     }
     
-    .progress-bar {
-      background-color: var(--primary);
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      transition: width 0.5s ease;
     }
     
     .funding-info {
@@ -275,7 +279,7 @@
           <% campaigns.forEach(campaign => { %>
             <div class="col-md-6 col-lg-4">
               <div class="campaign-card">
-                <img src="<%= campaign.imageUrl || '/images/placeholder.jpg' %>" 
+                <img src="<%= campaign.filePath || '/images/placeholder.jpg' %>" 
                      class="card-img-top" 
                      alt="<%= campaign.title %>">
                 
@@ -290,14 +294,8 @@
                   <p class="card-text"><%= campaign.description.substring(0, 120) %>...</p>
                   
                   <div class="progress-container">
-                    <div class="progress">
-                      <div class="progress-bar" 
-                           role="progressbar" 
-                           style="width: '<%= (campaign.currentAmount / campaign.goalAmount * 100) %>%'" 
-                           aria-valuenow="<%= campaign.currentAmount %>" 
-                           aria-valuemin="0" 
-                           aria-valuemax="<%= campaign.goalAmount %>">
-                      </div>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: <%= (campaign.currentAmount / campaign.goalAmount * 100) %>%"></div>
                     </div>
                   </div>
                   

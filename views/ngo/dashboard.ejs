@@ -499,12 +499,12 @@
       </div>
       
       <div class="stat-card success">
-        <div class="stat-value"><%= campaigns.filter(c => c.status === 'active').length %></div>
+        <div class="stat-value"><%= campaigns.length %></div>
         <div class="stat-label">Active Campaigns</div>
       </div>
       
       <div class="stat-card warning">
-        <div class="stat-value"><%= campaigns.filter(c => c.status === 'completed').length %></div>
+        <div class="stat-value"><%= completed %></div>
         <div class="stat-label">Completed Campaigns</div>
       </div>
     </div>
@@ -522,7 +522,7 @@
       <div class="campaigns-grid">
         <% campaigns.forEach(campaign => { %>
           <div class="campaign-card">
-            <div class="campaign-image" style="background-image: url('<%= campaign.image || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' %>');">
+            <div class="campaign-image" style="background-image: url('<%= campaign.filePath || 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' %>');">
               <span class="campaign-status <%= campaign.status === 'active' ? 'status-active' : 
                                            campaign.status === 'draft' ? 'status-draft' : 
                                            'status-completed' %>">
@@ -545,7 +545,7 @@
               
               <div class="campaign-actions">
                 <span><%= campaign.donations %> donations</span>
-                <a href="/campaigns/<%= campaign.id %>" class="view-btn">
+                <a href="/campaign/<%= campaign.id %>" class="view-btn">
                   View Details
                   <i class="fas fa-arrow-right"></i>
                 </a>

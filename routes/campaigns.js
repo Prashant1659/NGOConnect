@@ -2,16 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const Campaign = require('../models/Campaign'); // Assuming you have a Campaign model
-
+const CampaignController = require('../controllers/campaign.controller');
 // Get single campaign by ID
-router.get('/campaign/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const campaign = await Campaign.findById(req.params.id);
     
     if (!campaign) {
       return res.status(404).send('Campaign not found');
     }
-
     // Calculate days left (example)
     const daysLeft = Math.ceil((new Date(campaign.endDate) - new Date()) / (1000 * 60 * 60 * 24));
     
@@ -29,4 +28,6 @@ router.get('/campaign/:id', async (req, res) => {
   }
 });
 
+router.get('/donate/:id', CampaignController.getDonatePage);
+router.post('/donate/:id', CampaignController.postDonate);
 module.exports = router;
