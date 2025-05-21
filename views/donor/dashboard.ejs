@@ -69,17 +69,18 @@
       box-shadow: var(--shadow-md);
     }
     
-    /* Header Styles */
+    /* Improved Header Styles */
     .dashboard-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 5%;
-      background: var(--white);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      padding: 12px 5%;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 2px 30px rgba(108, 99, 255, 0.1);
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid rgba(108, 99, 255, 0.1);
     }
     
     .logo {
@@ -89,31 +90,41 @@
     }
     
     .logo-icon {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       background: var(--gradient-primary);
       border-radius: var(--border-radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    
+    .logo:hover .logo-icon {
+      transform: rotate(15deg) scale(1.1);
     }
     
     .logo-text {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
       background: linear-gradient(to right, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
+      transition: var(--transition);
+    }
+    
+    .logo:hover .logo-text {
+      letter-spacing: 0px;
     }
     
     .user-nav {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
     }
     
     .nav-link {
@@ -126,11 +137,14 @@
       transition: var(--transition);
       position: relative;
       font-size: 0.95rem;
+      padding: 8px 12px;
+      border-radius: var(--border-radius-sm);
     }
     
     .nav-link.active {
       color: var(--primary);
       font-weight: 600;
+      background: var(--primary-extra-light);
     }
     
     .nav-link.active::after {
@@ -139,21 +153,24 @@
     
     .nav-link:hover {
       color: var(--primary);
+      background: var(--primary-extra-light);
     }
     
     .nav-link::after {
       content: '';
       position: absolute;
       bottom: -6px;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
-      height: 2px;
+      height: 3px;
       background: var(--primary);
       transition: var(--transition);
+      border-radius: 2px;
     }
     
     .nav-link:hover::after {
-      width: 100%;
+      width: 60%;
     }
     
     .user-profile {
@@ -164,8 +181,8 @@
     }
     
     .user-avatar {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: var(--gradient-primary);
       color: white;
@@ -176,11 +193,104 @@
       cursor: pointer;
       transition: var(--transition);
       box-shadow: var(--shadow-sm);
+      border: 2px solid white;
+      position: relative;
+      overflow: hidden;
     }
     
     .user-avatar:hover {
       transform: scale(1.08);
       box-shadow: var(--shadow-md);
+    }
+    
+    .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 2px solid white;
+    }
+    
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 240px;
+      background: var(--white);
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+    
+    .user-profile:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .dropdown-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--light-gray);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .dropdown-header .user-info {
+      flex: 1;
+    }
+    
+    .dropdown-header .user-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    
+    .dropdown-header .user-email {
+      font-size: 0.8rem;
+      color: var(--medium-gray);
+    }
+    
+    .dropdown-item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    .dropdown-item:hover {
+      background: var(--primary-extra-light);
+      color: var(--primary);
+    }
+    
+    .dropdown-divider {
+      height: 1px;
+      background: var(--light-gray);
+      margin: 4px 0;
     }
     
     /* Main Content */
@@ -795,6 +905,9 @@
       font-size: 0.85rem;
       font-weight: 500;
       transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     
     .download-btn:hover {
@@ -871,16 +984,15 @@
     
     @media (max-width: 768px) {
       .dashboard-header {
-        flex-direction: column;
-        gap: 15px;
         padding: 15px 4%;
       }
       
       .user-nav {
-        width: 100%;
-        justify-content: space-between;
         gap: 15px;
-        flex-wrap: wrap;
+      }
+      
+      .nav-link span {
+        display: none;
       }
       
       .hero-banner {
@@ -1012,7 +1124,7 @@
 <body>
   <!-- Dashboard Header -->
   <header class="dashboard-header">
-    <div class="logo">
+    <div class="logo" onclick="window.location.href='/'">
       <div class="logo-icon hover-float">
         <i class="fas fa-hands-helping"></i>
       </div>
@@ -1033,7 +1145,34 @@
         <span>Saved</span>
       </a>
       <div class="user-profile">
-        <div class="user-avatar hover-float">D</div>
+        <div class="user-avatar hover-float">
+          <span class="notification-badge">3</span>
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+        </div>
+        <div class="dropdown-menu">
+          <div class="dropdown-header">
+            <div class="user-avatar">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+            </div>
+            <div class="user-info">
+              <div class="user-name">David Wilson</div>
+              <div class="user-email">david@example.com</div>
+            </div>
+          </div>
+          <a href="/donor/profile" class="dropdown-item">
+            <i class="fas fa-user"></i>
+            My Profile
+          </a>
+          <a href="/donor/settings" class="dropdown-item">
+            <i class="fas fa-cog"></i>
+            Settings
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="/logout" class="dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </a>
+        </div>
       </div>
     </nav>
   </header>
@@ -1058,7 +1197,7 @@
         <div class="stat-icon">
           <i class="fas fa-hand-holding-heart"></i>
         </div>
-        <div class="stat-value">$<%= totalDonated%></div>
+        <div class="stat-value">$<span id="total-donated">2,500</span></div>
         <div class="stat-label">Total Donated</div>
         <div class="pattern">
           <i class="fas fa-heart"></i>
@@ -1069,7 +1208,7 @@
         <div class="stat-icon">
           <i class="fas fa-gift"></i>
         </div>
-        <div class="stat-value">14</div>
+        <div class="stat-value"><span id="total-contributions">14</span></div>
         <div class="stat-label">Contributions Made</div>
         <div class="pattern">
           <i class="fas fa-gift"></i>
@@ -1080,7 +1219,7 @@
         <div class="stat-icon">
           <i class="fas fa-users"></i>
         </div>
-        <div class="stat-value">5+</div>
+        <div class="stat-value"><span id="causes-supported">5</span>+</div>
         <div class="stat-label">Causes Supported</div>
         <div class="pattern">
           <i class="fas fa-hands-helping"></i>
@@ -1091,7 +1230,7 @@
         <div class="stat-icon">
           <i class="fas fa-leaf"></i>
         </div>
-        <div class="stat-value">120+ <i class="fas fa-arrow-up trend-up"></i></div>
+        <div class="stat-value"><span id="lives-impacted">120</span>+ <i class="fas fa-arrow-up trend-up"></i></div>
         <div class="stat-label">Lives Impacted</div>
         <div class="pattern">
           <i class="fas fa-leaf"></i>
@@ -1125,81 +1264,8 @@
         </a>
       </div>
       
-      <div class="donations-grid">
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Education</span>
-            <span class="donation-status status-active">
-              active
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Build a School in Rural India</h3>
-            <p class="donation-org">Education for All Foundation</p>
-            <p class="donation-date">
-              <i class="far fa-calendar-alt"></i>
-              May 15, 2023
-            </p>
-            <p class="donation-desc">Help us construct a new school building to serve 200 children in a remote village with no access to education.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$500</div>
-              <a href="/campaigns/1" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Environment</span>
-            <span class="donation-status status-completed">
-              completed
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Plant 10,000 Trees Initiative</h3>
-            <p class="donation-org">Green Earth Alliance</p>
-            <p class="donation-date">
-              <i class="far fa-calendar-alt"></i>
-              March 28, 2023
-            </p>
-            <p class="donation-desc">Reforestation project to combat climate change by planting native tree species in deforested areas.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$250</div>
-              <a href="/campaigns/2" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Healthcare</span>
-            <span class="donation-status status-active">
-              active
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Mobile Medical Clinic for Rural Areas</h3>
-            <p class="donation-org">Health Reach International</p>
-            <p class="donation-date">
-              <i class="far fa-calendar-alt"></i>
-              February 10, 2023
-            </p>
-            <p class="donation-desc">Fund a mobile clinic to provide essential healthcare services to remote communities without access to medical facilities.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$750</div>
-              <a href="/campaigns/3" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="donations-grid" id="recent-donations">
+        <!-- Donation cards will be dynamically inserted here -->
       </div>
     </section>
     
@@ -1213,7 +1279,7 @@
         </a>
       </div>
       
-      <table class="certificates-table glass-card">
+      <table class="certificates-table glass-card" id="tax-certificates">
         <thead>
           <tr>
             <th>Year</th>
@@ -1223,24 +1289,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2023</td>
-            <td>$2,500</td>
-            <td>$2,500</td>
-            <td><a href="#" class="download-btn">Download</a></td>
-          </tr>
-          <tr>
-            <td>2022</td>
-            <td>$1,750</td>
-            <td>$1,750</td>
-            <td><a href="#" class="download-btn">Download</a></td>
-          </tr>
-          <tr>
-            <td>2021</td>
-            <td>$1,200</td>
-            <td>$1,200</td>
-            <td><a href="#" class="download-btn">Download</a></td>
-          </tr>
+          <!-- Tax certificate rows will be dynamically inserted here -->
         </tbody>
       </table>
     </section>
@@ -1249,7 +1298,7 @@
     <section class="recommendations-section">
       <div class="section-header">
         <h2 class="section-title">Recommended for You</h2>
-        <div class="view-all">
+        <div class="view-all" id="refresh-recommendations">
           <i class="fas fa-sync-alt"></i>
           Refresh
         </div>
@@ -1264,69 +1313,8 @@
         <div class="tag">Animal Welfare</div>
       </div>
       
-      <div class="donations-grid">
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Education</span>
-            <span class="donation-status status-active">
-              active
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Digital Learning for Rural Girls</h3>
-            <p class="donation-org">Girls Education Initiative</p>
-            <p class="donation-desc">Provide tablets and digital learning resources to 500 girls in rural communities to bridge the education gap.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$300</div>
-              <a href="/campaigns/4" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Environment</span>
-            <span class="donation-status status-active">
-              active
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Clean Water for 10 Villages</h3>
-            <p class="donation-org">Water for Life</p>
-            <p class="donation-desc">Install water purification systems in 10 villages currently relying on contaminated water sources.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$400</div>
-              <a href="/campaigns/5" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="donation-card glass-card">
-          <div class="donation-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');">
-            <span class="donation-category">Healthcare</span>
-            <span class="donation-status status-active">
-              active
-            </span>
-          </div>
-          <div class="donation-content">
-            <h3 class="donation-title">Cancer Treatment for Children</h3>
-            <p class="donation-org">Hope for Kids Foundation</p>
-            <p class="donation-desc">Fund life-saving cancer treatments for 20 children from low-income families.</p>
-            <div class="donation-amount">
-              <div class="amount-value">$600</div>
-              <a href="/campaigns/6" class="view-details">
-                Details
-                <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="donations-grid" id="recommended-campaigns">
+        <!-- Recommended campaign cards will be dynamically inserted here -->
       </div>
     </section>
     
@@ -1372,7 +1360,7 @@
           <p class="testimonial-text">"Thanks to generous donors like you, we've been able to provide clean water to an entire village. Your support changes lives every single day."</p>
           <div class="testimonial-author">
             <div class="author-avatar">
-              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" style="width:100%;height:100%;object-fit:cover;">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
             </div>
             <div class="author-name">Sarah Johnson</div>
             <div class="author-role">Director, Water for All Foundation</div>
@@ -1383,7 +1371,133 @@
   </div>
   
   <script>
+    // Sample data structure - replace with actual data from your backend
+    const donorData = {
+      totalDonated: 2500,
+      totalContributions: 14,
+      causesSupported: 5,
+      livesImpacted: 120,
+      recentDonations: [
+        {
+          id: 1,
+          title: "Build a School in Rural India",
+          organization: "Education for All Foundation",
+          category: "Education",
+          date: "2023-05-15",
+          description: "Help us construct a new school building to serve 200 children in a remote village with no access to education.",
+          amount: 500,
+          status: "active",
+          imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: 2,
+          title: "Plant 10,000 Trees Initiative",
+          organization: "Green Earth Alliance",
+          category: "Environment",
+          date: "2023-03-28",
+          description: "Reforestation project to combat climate change by planting native tree species in deforested areas.",
+          amount: 250,
+          status: "completed",
+          imageUrl: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: 3,
+          title: "Mobile Medical Clinic for Rural Areas",
+          organization: "Health Reach International",
+          category: "Healthcare",
+          date: "2023-02-10",
+          description: "Fund a mobile clinic to provide essential healthcare services to remote communities without access to medical facilities.",
+          amount: 750,
+          status: "active",
+          imageUrl: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        }
+      ],
+      taxCertificates: [
+        {
+          year: 2023,
+          totalDonations: 2500,
+          eligibleAmount: 2500,
+          downloadUrl: "#"
+        },
+        {
+          year: 2022,
+          totalDonations: 1750,
+          eligibleAmount: 1750,
+          downloadUrl: "#"
+        },
+        {
+          year: 2021,
+          totalDonations: 1200,
+          eligibleAmount: 1200,
+          downloadUrl: "#"
+        }
+      ],
+      recommendedCampaigns: [
+        {
+          id: 4,
+          title: "Digital Learning for Rural Girls",
+          organization: "Girls Education Initiative",
+          category: "Education",
+          description: "Provide tablets and digital learning resources to 500 girls in rural communities to bridge the education gap.",
+          amount: 300,
+          status: "active",
+          imageUrl: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: 5,
+          title: "Clean Water for 10 Villages",
+          organization: "Water for Life",
+          category: "Environment",
+          description: "Install water purification systems in 10 villages currently relying on contaminated water sources.",
+          amount: 400,
+          status: "active",
+          imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          id: 6,
+          title: "Cancer Treatment for Children",
+          organization: "Hope for Kids Foundation",
+          category: "Healthcare",
+          description: "Fund life-saving cancer treatments for 20 children from low-income families.",
+          amount: 600,
+          status: "active",
+          imageUrl: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    };
+
     document.addEventListener('DOMContentLoaded', function() {
+      // Populate stats from data
+      document.getElementById('total-donated').textContent = donorData.totalDonated.toLocaleString();
+      document.getElementById('total-contributions').textContent = donorData.totalContributions;
+      document.getElementById('causes-supported').textContent = donorData.causesSupported;
+      document.getElementById('lives-impacted').textContent = donorData.livesImpacted;
+      
+      // Render recent donations
+      const recentDonationsContainer = document.getElementById('recent-donations');
+      donorData.recentDonations.forEach(donation => {
+        recentDonationsContainer.appendChild(createDonationCard(donation));
+      });
+      
+      // Render tax certificates
+      const taxCertificatesBody = document.querySelector('#tax-certificates tbody');
+      donorData.taxCertificates.forEach(cert => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${cert.year}</td>
+          <td>$${cert.totalDonations.toLocaleString()}</td>
+          <td>$${cert.eligibleAmount.toLocaleString()}</td>
+          <td><a href="${cert.downloadUrl}" class="download-btn"><i class="fas fa-download"></i> Download</a></td>
+        `;
+        taxCertificatesBody.appendChild(row);
+      });
+      
+      // Render recommended campaigns
+      const recommendedCampaignsContainer = document.getElementById('recommended-campaigns');
+      donorData.recommendedCampaigns.forEach(campaign => {
+        recommendedCampaignsContainer.appendChild(createDonationCard(campaign));
+      });
+      
       // Time filter buttons
       const timeButtons = document.querySelectorAll('.time-btn');
       timeButtons.forEach(button => {
@@ -1475,6 +1589,46 @@
         impactChart.update();
       }
       
+      // Create donation card element
+      function createDonationCard(data) {
+        const card = document.createElement('div');
+        card.className = 'donation-card glass-card';
+        
+        const statusClass = data.status === 'active' ? 'status-active' : 'status-completed';
+        const formattedDate = new Date(data.date).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric' 
+        });
+        
+        card.innerHTML = `
+          <div class="donation-image" style="background-image: url('${data.imageUrl}');">
+            <span class="donation-category">${data.category}</span>
+            <span class="donation-status ${statusClass}">
+              ${data.status}
+            </span>
+          </div>
+          <div class="donation-content">
+            <h3 class="donation-title">${data.title}</h3>
+            <p class="donation-org">${data.organization}</p>
+            <p class="donation-date">
+              <i class="far fa-calendar-alt"></i>
+              ${formattedDate}
+            </p>
+            <p class="donation-desc">${data.description}</p>
+            <div class="donation-amount">
+              <div class="amount-value">$${data.amount}</div>
+              <a href="/campaigns/${data.id}" class="view-details">
+                Details
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        `;
+        
+        return card;
+      }
+      
       // Tag filtering for recommendations
       const tags = document.querySelectorAll('.tag');
       tags.forEach(tag => {
@@ -1482,7 +1636,42 @@
           tags.forEach(t => t.classList.remove('active'));
           this.classList.add('active');
           // Here you would filter recommendations based on the selected tag
+          const category = this.textContent.toLowerCase();
+          filterRecommendations(category);
         });
+      });
+      
+      function filterRecommendations(category) {
+        const container = document.getElementById('recommended-campaigns');
+        container.innerHTML = '';
+        
+        let campaignsToShow = donorData.recommendedCampaigns;
+        if (category !== 'all') {
+          campaignsToShow = donorData.recommendedCampaigns.filter(
+            campaign => campaign.category.toLowerCase() === category
+          );
+        }
+        
+        campaignsToShow.forEach(campaign => {
+          container.appendChild(createDonationCard(campaign));
+        });
+      }
+      
+      // Refresh recommendations
+      document.getElementById('refresh-recommendations').addEventListener('click', function() {
+        // In a real app, this would fetch new recommendations from the server
+        const container = document.getElementById('recommended-campaigns');
+        container.innerHTML = '';
+        
+        // Simulate loading
+        container.innerHTML = '<div class="loading-spinner">Loading new recommendations...</div>';
+        
+        setTimeout(() => {
+          container.innerHTML = '';
+          donorData.recommendedCampaigns.forEach(campaign => {
+            container.appendChild(createDonationCard(campaign));
+          });
+        }, 1000);
       });
       
       // Initialize animations
