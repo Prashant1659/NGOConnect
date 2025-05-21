@@ -28,10 +28,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.get('/donate/:id', CampaignController.getDonatePage);
 router.post('/donate/:id', CampaignController.postDonate);
-=======
 router.get('/campaign/:id', async (req, res) => {
   try {
     const campaign = await getCampaignById(req.params.id);
@@ -44,5 +42,4 @@ router.get('/campaign/:id', async (req, res) => {
   }
 });
 
->>>>>>> cea65512b29f4848770db56d0dc4eb6d9eb3fc5e
 module.exports = router;

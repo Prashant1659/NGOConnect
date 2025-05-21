@@ -183,20 +183,6 @@
       margin: 1.25rem 0;
     }
     
-<<<<<<< HEAD
-    .progress-bar {
-      height: 8px;
-      background: var(--light-gray);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: var(--primary);
-      border-radius: 4px;
-      transition: width 0.5s ease;
-=======
     .progress {
       height: 10px;
       border-radius: 5px;
@@ -206,7 +192,6 @@
     .progress-bar {
       background: linear-gradient(90deg, var(--primary-light) 0%, var(--secondary) 100%);
       border-radius: 5px;
->>>>>>> cea65512b29f4848770db56d0dc4eb6d9eb3fc5e
     }
     
     .funding-info {
@@ -500,11 +485,9 @@
           <% campaigns.forEach((campaign, index) => { %>
             <div class="col-md-6 col-lg-4">
               <div class="campaign-card">
-<<<<<<< HEAD
                 <img src="<%= campaign.filePath || '/images/placeholder.jpg' %>" 
                      class="card-img-top" 
                      alt="<%= campaign.title %>">
-=======
                 <% if (index < 3) { %>
                   <span class="featured-badge">Featured</span>
                 <% } %>
@@ -514,7 +497,6 @@
                        alt="<%= campaign.title %>">
                   <span class="badge-category"><%= campaign.category || 'General' %></span>
                 </div>
->>>>>>> cea65512b29f4848770db56d0dc4eb6d9eb3fc5e
                 
                 <div class="card-body">
                   <h3 class="card-title"><%= campaign.title %></h3>
@@ -528,10 +510,8 @@
                   </div>
                   
                   <div class="progress-container">
-<<<<<<< HEAD
                     <div class="progress-bar">
                       <div class="progress-fill" style="width: <%= (campaign.currentAmount / campaign.goalAmount * 100) %>%"></div>
-=======
                     <div class="progress">
                       <div class="progress-bar" 
                            role="progressbar" 
@@ -540,7 +520,6 @@
                            aria-valuemin="0" 
                            aria-valuemax="<%= campaign.goalAmount %>">
                       </div>
->>>>>>> cea65512b29f4848770db56d0dc4eb6d9eb3fc5e
                     </div>
                   </div>
                   
