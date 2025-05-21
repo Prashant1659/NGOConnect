@@ -26,7 +26,7 @@ exports.getVerifyNgos = async (req, res) => {
 // Verify NGO
 exports.verifyNgo = async (req, res) => {
     try {
-        const ngos = await NgoProfile.find({ isVerified: false });
+        const ngos = await NgoProfile.find({ isVerified: false }).populate('user');
         res.render('admin/verifyNgos', { ngos });
       } catch (err) {
         console.error(err);

@@ -577,22 +577,22 @@
             <div class="ngo-body">
               <div class="detail-row">
                 <span class="detail-label">Registration Date:</span>
-                <span class="detail-value"><%= new Date(ngo.registeredDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                <span class="detail-value"><%= new Date(ngo.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
               </div>
               
               <div class="detail-row">
                 <span class="detail-label">Contact Person:</span>
-                <span class="detail-value"><%= ngo.contactPerson %></span>
+                <span class="detail-value"><%= ngo.user.name %></span>
               </div>
               
               <div class="detail-row">
-                <span class="detail-label">Phone:</span>
-                <span class="detail-value"><%= ngo.phoneNumber %></span>
+                <span class="detail-label">organizationName:</span>
+                <span class="detail-value"><%= ngo.organizationName %></span>
               </div>
               
               <div class="detail-row">
-                <span class="detail-label">Location:</span>
-                <span class="detail-value"><%= ngo.city %>, <%= ngo.country %></span>
+                <span class="detail-label">organizationType</span>
+                <span class="detail-value"><%= ngo.organizationType %></span>
               </div>
               
               <div class="documents-list">
@@ -601,8 +601,8 @@
                 <div class="document-item">
                   <i class="fas fa-file-alt document-icon"></i>
                   <span class="document-name">Registration Certificate</span>
-                  <% if (ngo && ngo.documents && ngo.documents.registrationCertificate) { %>
-                    <a href="<%= ngo.documents.registrationCertificate %>" target="_blank" class="view-doc">
+                  <% if (ngo && ngo.certificate) { %>
+                    <a href="<%= ngo.certificate %>" target="_blank" class="view-doc">
                       View <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
                     </a>
                   <% } else { %>
