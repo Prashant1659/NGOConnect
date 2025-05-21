@@ -10,7 +10,7 @@ const donorRoutes = require('./routes/donor.routes');
 const adminRoutes = require('./routes/admin.routes');
 const flash = require('connect-flash');
 const app = express();
-
+require('dotenv').config();
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/ngoWebsite', {
   useNewUrlParser: true,
