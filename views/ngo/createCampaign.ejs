@@ -5,36 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Campaign | NGO Connect</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Dropzone CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css">
   <style>
     :root {
       --primary: #4F46E5;
       --primary-light: #6366F1;
-      --secondary: #4338CA;
+      --primary-dark: #4338CA;
       --accent: #EC4899;
       --success: #10B981;
       --warning: #F59E0B;
       --danger: #EF4444;
-      --dark: #1F2937;
+      --dark: #111827;
+      --darker: #1F2937;
       --light: #F9FAFB;
       --gray: #6B7280;
       --light-gray: #E5E7EB;
+      --lighter-gray: #F3F4F6;
+      --radius: 12px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
     
     body {
-      background-color: #F8FAFF;
+      background-color: var(--lighter-gray);
       color: var(--dark);
+      line-height: 1.5;
     }
     
     /* Header Styles */
@@ -42,9 +47,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
+      padding: 18px 40px;
       background: white;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
     
     .logo {
@@ -54,120 +62,125 @@
     }
     
     .logo-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--primary);
-      border-radius: 12px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     
     .logo-text {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      background: linear-gradient(to right, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--dark);
+    }
+    
+    .logo-text span {
+      color: var(--primary);
     }
     
     .user-nav {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 28px;
     }
     
     .nav-link {
       color: var(--gray);
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       position: relative;
+      padding: 8px 0;
     }
     
     .nav-link:hover {
       color: var(--primary);
     }
     
-    .nav-link:hover::after {
-      width: 100%;
+    .nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
     }
     
-    .nav-link::after {
+    .nav-link.active::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 0;
-      width: 0;
+      width: 100%;
       height: 2px;
       background: var(--primary);
-      transition: width 0.3s ease;
+      border-radius: 2px;
     }
     
     /* Main Content */
     .create-container {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 40px auto;
       padding: 0 30px;
     }
     
     /* Page Header */
     .page-header {
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
     
     .page-title {
-      font-size: 1.8rem;
-      font-weight: 600;
-      position: relative;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-    
-    .page-title::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 50px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 2px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--darker);
     }
     
     .page-description {
       color: var(--gray);
       max-width: 700px;
+      font-size: 0.95rem;
     }
     
     /* Form Styles */
     .campaign-form {
       background: white;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
     }
     
     .form-section {
-      margin-bottom: 30px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .form-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
     
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
+      color: var(--darker);
     }
     
     .section-title i {
       color: var(--primary);
+      font-size: 1rem;
     }
     
     .form-group {
@@ -178,26 +191,30 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--darker);
     }
     
     .form-control {
       width: 100%;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border: 1px solid var(--light-gray);
       border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      background-color: white;
     }
     
     .form-control:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
       outline: none;
     }
     
     textarea.form-control {
       min-height: 120px;
       resize: vertical;
+      line-height: 1.6;
     }
     
     /* Image Upload */
@@ -207,26 +224,29 @@
       padding: 30px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      background-color: var(--lighter-gray);
     }
     
     .image-upload:hover {
       border-color: var(--primary);
+      background-color: rgba(79, 70, 229, 0.03);
     }
     
     .upload-icon {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: var(--primary);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
     
     .upload-text {
-      color: var(--gray);
-      margin-bottom: 10px;
+      color: var(--darker);
+      margin-bottom: 8px;
+      font-weight: 500;
     }
     
     .upload-hint {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--gray);
     }
     
@@ -241,25 +261,26 @@
       max-width: 100%;
       max-height: 300px;
       border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      object-fit: contain;
     }
     
     /* Form Actions */
     .form-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 15px;
-      margin-top: 30px;
-      padding-top: 30px;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
       border-top: 1px solid var(--light-gray);
     }
     
     .btn {
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: 8px;
       font-weight: 500;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -272,9 +293,9 @@
     }
     
     .btn-primary:hover {
-      background: var(--secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
     }
     
     .btn-outline {
@@ -286,54 +307,101 @@
     .btn-outline:hover {
       border-color: var(--primary);
       color: var(--primary);
+      background-color: rgba(79, 70, 229, 0.05);
+    }
+    
+    /* Rich Text Editor */
+    .editor-container {
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .editor-toolbar {
+      padding: 8px 12px;
+      background: var(--lighter-gray);
+      border-bottom: 1px solid var(--light-gray);
+      display: flex;
+      gap: 6px;
+    }
+    
+    .editor-btn {
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray);
+      transition: all 0.2s ease;
+    }
+    
+    .editor-btn:hover {
+      background: var(--light-gray);
+      color: var(--darker);
+    }
+    
+    .editor-content {
+      padding: 14px;
+      min-height: 200px;
+      outline: none;
     }
     
     /* Responsive Design */
     @media (max-width: 768px) {
       .dashboard-header {
-        flex-direction: column;
+        padding: 16px 20px;
+      }
+      
+      .user-nav {
         gap: 15px;
-        padding: 15px 20px;
+      }
+      
+      .create-container {
+        padding: 0 20px;
+      }
+      
+      .campaign-form {
+        padding: 24px;
+      }
+      
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
       }
       
       .user-nav {
         width: 100%;
         justify-content: space-between;
-        gap: 15px;
+        gap: 8px;
       }
       
-      .create-container {
-        padding: 0 15px;
-      }
-      
-      .campaign-form {
-        padding: 20px;
-      }
-      
-      .form-actions {
-        flex-direction: column;
-      }
-      
-      .btn {
-        width: 100%;
-        justify-content: center;
+      .nav-link span {
+        display: none;
       }
     }
     
-    /* Rich Text Editor */
-    .editor-toolbar {
-      border: 1px solid var(--light-gray);
-      border-bottom: none;
-      border-radius: 8px 8px 0 0;
-      padding: 8px;
-      background: #F9FAFB;
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
-    .editor-content {
-      border: 1px solid var(--light-gray);
-      border-radius: 0 0 8px 8px;
-      padding: 15px;
-      min-height: 200px;
+    .campaign-form {
+      animation: fadeIn 0.3s ease-out;
     }
   </style>
 </head>
@@ -344,7 +412,7 @@
       <div class="logo-icon">
         <i class="fas fa-hands-helping"></i>
       </div>
-      <div class="logo-text">NGO Connect</div>
+      <div class="logo-text">NGO<span>Connect</span></div>
     </div>
     
     <nav class="user-nav">
@@ -354,11 +422,11 @@
       </a>
       <a href="/ngo/campaigns" class="nav-link">
         <i class="fas fa-list"></i>
-        <span>My Campaigns</span>
+        <span>Campaigns</span>
       </a>
       <a href="/ngo/create-campaign" class="nav-link active">
         <i class="fas fa-plus-circle"></i>
-        <span>Create Campaign</span>
+        <span>Create</span>
       </a>
       <a href="/logout" class="nav-link">
         <i class="fas fa-sign-out-alt"></i>
@@ -370,8 +438,8 @@
   <!-- Main Content -->
   <div class="create-container">
     <div class="page-header">
-      <h1 class="page-title">Create New Campaign</h1>
-      <p class="page-description">Fill out the form below to launch your new fundraising campaign and start making an impact.</p>
+      <h1 class="page-title">Start a New Campaign</h1>
+      <p class="page-description">Create your fundraising campaign to make a difference. Fill in the details below to get started.</p>
     </div>
     
     <form class="campaign-form" action="/ngo/create-campaign" method="POST" enctype="multipart/form-data">
@@ -379,21 +447,21 @@
       <div class="form-section">
         <h3 class="section-title">
           <i class="fas fa-info-circle"></i>
-          Basic Information
+          Campaign Details
         </h3>
         
         <div class="form-group">
-          <label for="title" class="form-label">Campaign Title *</label>
+          <label for="title" class="form-label">Campaign Title</label>
           <input type="text" id="title" name="title" class="form-control" placeholder="e.g. Clean Water for Rural Communities" required>
         </div>
         
         <div class="form-group">
-          <label for="description" class="form-label">Short Description *</label>
+          <label for="description" class="form-label">Short Description</label>
           <textarea id="description" name="description" class="form-control" placeholder="Briefly describe your campaign (max 200 characters)" maxlength="200" required></textarea>
         </div>
         
         <div class="form-group">
-          <label for="category" class="form-label">Category *</label>
+          <label for="category" class="form-label">Category</label>
           <select id="category" name="category" class="form-control" required>
             <option value="">Select a category</option>
             <option value="education">Education</option>
@@ -418,8 +486,8 @@
           <div class="upload-icon">
             <i class="fas fa-cloud-upload-alt"></i>
           </div>
-          <h4 class="upload-text">Click to upload campaign image</h4>
-          <p class="upload-hint">Recommended size: 1200×630 pixels (JPG or PNG)</p>
+          <h4 class="upload-text">Upload campaign image</h4>
+          <p class="upload-hint">Recommended: 1200×630 pixels (JPG, PNG)</p>
           <input type="file" id="image" name="image" accept="image/*" style="display: none;">
         </div>
         
@@ -434,17 +502,17 @@
       <!-- Funding Details Section -->
       <div class="form-section">
         <h3 class="section-title">
-          <i class="fas fa-dollar-sign"></i>
-          Funding Details
+          <i class="fas fa-bullseye"></i>
+          Funding Goal
         </h3>
         
         <div class="form-group">
-          <label for="goalAmount" class="form-label">Goal Amount ($) *</label>
+          <label for="goalAmount" class="form-label">Target Amount ($)</label>
           <input type="number" id="goalAmount" name="goalAmount" class="form-control" placeholder="e.g. 5000" min="100" required>
         </div>
         
         <div class="form-group">
-          <label for="endDate" class="form-label">End Date *</label>
+          <label for="endDate" class="form-label">End Date</label>
           <input type="date" id="endDate" name="endDate" class="form-control" required>
         </div>
       </div>
@@ -452,27 +520,29 @@
       <!-- Story Section -->
       <div class="form-section">
         <h3 class="section-title">
-          <i class="fas fa-book-open"></i>
-          Campaign Story
+          <i class="fas fa-edit"></i>
+          Your Story
         </h3>
         
         <div class="form-group">
-          <label class="form-label">Tell your story *</label>
-          <div class="editor-toolbar">
-            <button type="button" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;">
-              <i class="fas fa-bold"></i>
-            </button>
-            <button type="button" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;">
-              <i class="fas fa-italic"></i>
-            </button>
-            <button type="button" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;">
-              <i class="fas fa-list-ul"></i>
-            </button>
-            <button type="button" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.9rem;">
-              <i class="fas fa-link"></i>
-            </button>
+          <label class="form-label">Tell your story</label>
+          <div class="editor-container">
+            <div class="editor-toolbar">
+              <button type="button" class="editor-btn" title="Bold">
+                <i class="fas fa-bold"></i>
+              </button>
+              <button type="button" class="editor-btn" title="Italic">
+                <i class="fas fa-italic"></i>
+              </button>
+              <button type="button" class="editor-btn" title="Bullet List">
+                <i class="fas fa-list-ul"></i>
+              </button>
+              <button type="button" class="editor-btn" title="Link">
+                <i class="fas fa-link"></i>
+              </button>
+            </div>
+            <textarea id="story" name="story" class="form-control" style="min-height: 200px; border: none;" placeholder="Tell your story in detail. Explain why this cause matters and how the funds will be used." required></textarea>
           </div>
-          <textarea id="story" name="story" class="form-control" style="min-height: 200px;" placeholder="Tell your story in detail. Explain why this cause matters and how the funds will be used." required></textarea>
         </div>
       </div>
       
@@ -482,7 +552,7 @@
           <i class="fas fa-times"></i> Cancel
         </button>
         <button type="submit" class="btn btn-primary">
-          <i class="fas fa-rocket"></i> Launch Campaign
+          <i class="fas fa-paper-plane"></i> Launch Campaign
         </button>
       </div>
     </form>
@@ -529,6 +599,14 @@
     const yyyy = tomorrow.getFullYear();
     
     document.getElementById('endDate').min = `${yyyy}-${mm}-${dd}`;
+    
+    // Add basic rich text functionality
+    document.querySelectorAll('.editor-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const command = this.querySelector('i').className.replace('fas fa-', '');
+        document.execCommand(command, false, null);
+      });
+    });
   </script>
 </body>
 </html>

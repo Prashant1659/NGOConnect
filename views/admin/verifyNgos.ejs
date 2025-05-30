@@ -50,100 +50,6 @@
       line-height: 1.6;
     }
     
-    /* Modern Sidebar */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-      padding: 30px 0;
-      position: fixed;
-      height: 100vh;
-      transition: all 0.3s ease;
-      z-index: 100;
-      border-right: none;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 30px 30px;
-      margin-bottom: 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--primary);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .logo-text {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      letter-spacing: 0.5px;
-    }
-    
-    .nav-menu {
-      padding: 0 20px;
-    }
-    
-    .nav-title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 25px 0 15px;
-      padding-left: 10px;
-    }
-    
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 5px;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-    
-    .nav-item i {
-      width: 24px;
-      text-align: center;
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-    
-    .nav-item.active {
-      background: rgba(67, 97, 238, 0.2);
-      color: white;
-      font-weight: 600;
-      backdrop-filter: blur(5px);
-    }
-    
-    .nav-item.active i {
-      color: white;
-    }
-    
-    .nav-item:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-    }
-    
-    .nav-item:hover:not(.active) i {
-      color: white;
-    }
-    
     /* Main Content Styles */
     .main-content {
       flex: 1;
@@ -187,52 +93,6 @@
       border-radius: 3px;
     }
     
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .user-avatar:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-    
-    .logout-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-    
-    .logout-btn:hover {
-      background: var(--light-gray);
-      color: var(--danger);
-    }
-    
     .content-area {
       padding: 30px;
     }
@@ -243,6 +103,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
     .verification-title {
@@ -290,6 +152,8 @@
       position: relative;
       box-shadow: var(--card-shadow);
       border: 1px solid var(--light-gray);
+      display: flex;
+      flex-direction: column;
     }
     
     .ngo-card:hover {
@@ -300,6 +164,7 @@
     .ngo-header {
       padding: 24px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(63, 55, 201, 0.05) 100%);
     }
     
     .ngo-name {
@@ -307,37 +172,68 @@
       font-weight: 700;
       margin-bottom: 5px;
       color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .ngo-name i {
+      color: var(--primary);
+      font-size: 1.1rem;
     }
     
     .ngo-email {
-      color: var(--gray);
+      color: #64748b;
       font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .ngo-email i {
+      color: var(--primary-light);
+      font-size: 0.9rem;
     }
     
     .ngo-body {
       padding: 24px;
+      flex: 1;
     }
     
     .detail-row {
       display: flex;
       margin-bottom: 16px;
+      align-items: flex-start;
     }
     
     .detail-label {
       width: 140px;
-      color: var(--gray);
+      color: #64748b;
       font-size: 0.9rem;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .detail-label i {
+      width: 18px;
+      color: var(--primary-light);
+      font-size: 0.85rem;
     }
     
     .detail-value {
       flex: 1;
       font-weight: 500;
       color: var(--dark);
+      line-height: 1.5;
     }
     
     .documents-list {
       margin-top: 24px;
+      background: rgba(241, 245, 249, 0.5);
+      border-radius: 12px;
+      padding: 16px;
     }
     
     .documents-title {
@@ -345,6 +241,13 @@
       font-weight: 600;
       margin-bottom: 16px;
       color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .documents-title i {
+      color: var(--primary);
     }
     
     .document-item {
@@ -378,10 +281,14 @@
       font-size: 0.85rem;
       font-weight: 600;
       transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     
     .view-doc:hover {
       color: var(--secondary);
+      text-decoration: underline;
     }
     
     .ngo-footer {
@@ -390,6 +297,7 @@
       display: flex;
       justify-content: space-between;
       gap: 15px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     /* Buttons */
@@ -404,6 +312,7 @@
       gap: 8px;
       text-decoration: none;
       border: none;
+      font-size: 0.9rem;
     }
     
     .btn-primary {
@@ -439,33 +348,36 @@
       box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
     }
     
-    /* Floating Action Button */
-    .fab {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
+    /* Empty State */
+    .empty-state {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
-      cursor: pointer;
-      transition: var(--transition);
-      z-index: 50;
-      border: none;
+      padding: 60px 30px;
+      text-align: center;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      grid-column: 1 / -1;
     }
     
-    .fab:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 24px rgba(67, 97, 238, 0.4);
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--primary-light);
+      margin-bottom: 20px;
     }
     
-    .fab i {
-      font-size: 1.4rem;
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .empty-state p {
+      color: #64748b;
+      max-width: 500px;
+      margin-bottom: 20px;
     }
     
     /* Responsive Design */
@@ -476,26 +388,18 @@
     }
     
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      
-      .sidebar.active {
-        transform: translateX(0);
-      }
-      
-      .main-content {
-        margin-left: 0;
-      }
-      
       .verification-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
       }
       
       .ngo-footer {
         flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
       }
     }
     
@@ -511,6 +415,10 @@
       
       .detail-label {
         width: 100%;
+      }
+      
+      .content-area {
+        padding: 20px;
       }
     }
     
@@ -534,6 +442,32 @@
     .ngo-card:nth-child(2) { animation-delay: 0.2s; }
     .ngo-card:nth-child(3) { animation-delay: 0.3s; }
     .ngo-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .status-pending {
+      background: rgba(248, 150, 30, 0.1);
+      color: var(--warning);
+    }
+    
+    .status-approved {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+    }
+    
+    .status-rejected {
+      background: rgba(239, 35, 60, 0.1);
+      color: var(--danger);
+    }
   </style>
 </head>
 <body>
@@ -567,95 +501,138 @@
       
       <!-- NGO List -->
       <div class="ngos-grid">
-        <% ngos.forEach(ngo => { %>
-          <div class="ngo-card">
-            <div class="ngo-header">
-              <h3 class="ngo-name"><%= ngo.organizationName %></h3>
-              <p class="ngo-email"><%= ngo.email %></p>
-            </div>
-            
-            <div class="ngo-body">
-              <div class="detail-row">
-                <span class="detail-label">Registration Date:</span>
-                <span class="detail-value"><%= new Date(ngo.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
-              </div>
-              
-              <div class="detail-row">
-                <span class="detail-label">Contact Person:</span>
-                <span class="detail-value"><%= ngo.user.name %></span>
-              </div>
-              
-              <div class="detail-row">
-                <span class="detail-label">organizationName:</span>
-                <span class="detail-value"><%= ngo.organizationName %></span>
-              </div>
-              
-              <div class="detail-row">
-                <span class="detail-label">organizationType</span>
-                <span class="detail-value"><%= ngo.organizationType %></span>
-              </div>
-              
-              <div class="documents-list">
-                <h4 class="documents-title">Submitted Documents</h4>
-                
-                <div class="document-item">
-                  <i class="fas fa-file-alt document-icon"></i>
-                  <span class="document-name">Registration Certificate</span>
-                  <% if (ngo && ngo.certificate) { %>
-                    <a href="<%= ngo.certificate %>" target="_blank" class="view-doc">
-                      View <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
-                    </a>
-                  <% } else { %>
-                    <span class="text-gray-400">Not provided</span>
-                  <% } %>
-                </div>
-                
-                <div class="document-item">
-                  <i class="fas fa-file-invoice document-icon"></i>
-                  <span class="document-name">Tax Exemption Proof</span>
-                  <% if (ngo && ngo.documents && ngo.documents.taxExemptionProof) { %>
-                    <a href="<%= ngo.documents.taxExemptionProof %>" target="_blank" class="view-doc">
-                      View <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
-                    </a>
-                  <% } else { %>
-                    <span class="text-gray-400">Not provided</span>
-                  <% } %>
-                </div>
-                
-                <% if(ngo && ngo.documents && ngo.documents.otherDocuments) { %>
-                  <div class="document-item">
-                    <i class="fas fa-file-pdf document-icon"></i>
-                    <span class="document-name">Additional Documents</span>
-                    <a href="<%= ngo.documents.otherDocuments %>" target="_blank" class="view-doc">
-                      View <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
-                    </a>
-                  </div>
-                <% } %>
-              </div>
-            </div>
-            
-            <div class="ngo-footer">
-              <form action="/admin/approve-ngo/<%= ngo._id %>" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-success" onclick="return confirm('Approve <%= ngo.organizationName %>?')">
-                  <i class="fas fa-check"></i> Approve
-                </button>
-              </form>
-              
-              <form action="/admin/reject-ngo/<%= ngo._id %>" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Reject <%= ngo.organizationName %>?')">
-                  <i class="fas fa-times"></i> Reject
-                </button>
-              </form>
-            </div>
+        <% if (ngos.length === 0) { %>
+          <div class="empty-state">
+            <i class="fas fa-check-circle"></i>
+            <h3>No NGOs Pending Verification</h3>
+            <p>All NGOs have been processed. Check back later for new verification requests.</p>
+            <button class="btn btn-primary" onclick="window.location.href='/admin/dashboard'">
+              <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+            </button>
           </div>
-        <% }) %>
+        <% } else { %>
+          <% ngos.forEach(ngo => { %>
+            <div class="ngo-card">
+              <div class="ngo-header">
+                <h3 class="ngo-name">
+                  <i class="fas fa-hands-helping"></i>
+                  <%= ngo.organizationName %>
+                </h3>
+                <p class="ngo-email">
+                  <i class="fas fa-envelope"></i>
+                  <%= ngo.email %>
+                </p>
+              </div>
+              
+              <div class="ngo-body">
+                <div class="detail-row">
+                  <span class="detail-label">
+                    <i class="far fa-calendar-alt"></i>
+                    Registration Date:
+                  </span>
+                  <span class="detail-value"><%= new Date(ngo.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                </div>
+                
+                <div class="detail-row">
+                  <span class="detail-label">
+                    <i class="fas fa-user-tie"></i>
+                    Contact Person:
+                  </span>
+                  <span class="detail-value"><%= ngo.user.name %></span>
+                </div>
+                
+                <div class="detail-row">
+                  <span class="detail-label">
+                    <i class="fas fa-building"></i>
+                    Organization Type:
+                  </span>
+                  <span class="detail-value"><%= ngo.organizationType %></span>
+                </div>
+                
+                <div class="detail-row">
+                  <span class="detail-label">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Location:
+                  </span>
+                  <span class="detail-value"><%= ngo.address ? ngo.address : 'Not specified' %></span>
+                </div>
+                
+                <div class="documents-list">
+                  <h4 class="documents-title">
+                    <i class="fas fa-file-upload"></i>
+                    Submitted Documents
+                  </h4>
+                  
+                  <div class="document-item">
+                    <i class="fas fa-file-certificate document-icon"></i>
+                    <span class="document-name">Registration Certificate</span>
+                    <% if (ngo && ngo.certificate) { %>
+                      <a href="<%= ngo.certificate %>" target="_blank" class="view-doc">
+                        View <i class="fas fa-external-link-alt"></i>
+                      </a>
+                    <% } else { %>
+                      <span class="text-gray-400">Not provided</span>
+                    <% } %>
+                  </div>
+                  
+                  <div class="document-item">
+                    <i class="fas fa-receipt document-icon"></i>
+                    <span class="document-name">Tax Exemption Proof</span>
+                    <% if (ngo && ngo.documents && ngo.documents.taxExemptionProof) { %>
+                      <a href="<%= ngo.documents.taxExemptionProof %>" target="_blank" class="view-doc">
+                        View <i class="fas fa-external-link-alt"></i>
+                      </a>
+                    <% } else { %>
+                      <span class="text-gray-400">Not provided</span>
+                    <% } %>
+                  </div>
+                  
+                  <% if(ngo && ngo.documents && ngo.documents.otherDocuments) { %>
+                    <div class="document-item">
+                      <i class="fas fa-file-archive document-icon"></i>
+                      <span class="document-name">Additional Documents</span>
+                      <a href="<%= ngo.documents.otherDocuments %>" target="_blank" class="view-doc">
+                        View <i class="fas fa-external-link-alt"></i>
+                      </a>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+              
+              <div class="ngo-footer">
+                <form action="/admin/approve-ngo/<%= ngo._id %>" method="POST" style="display: inline; flex: 1;">
+                  <button type="submit" class="btn btn-success" onclick="return confirm('Approve <%= ngo.organizationName %>? This action cannot be undone.')">
+                    <i class="fas fa-check-circle"></i> Approve
+                  </button>
+                </form>
+                
+                <form action="/admin/reject-ngo/<%= ngo._id %>" method="POST" style="display: inline; flex: 1;">
+                  <button type="submit" class="btn btn-danger" onclick="return confirm('Reject <%= ngo.organizationName %>? This action cannot be undone.')">
+                    <i class="fas fa-times-circle"></i> Reject
+                  </button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
       </div>
     </div>
   </main>
 
   <!-- Floating Action Button -->
-  <button class="fab" onclick="window.location.href='/admin/create-campaign'">
-    <i class="fas fa-plus"></i>
+  <button class="fab" onclick="window.location.href='/admin/dashboard'">
+    <i class="fas fa-tachometer-alt"></i>
   </button>
+
+  <script>
+    // Add confirmation for all form submissions
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        if (!confirm('Are you sure you want to perform this action?')) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

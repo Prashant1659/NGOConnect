@@ -5,35 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= ngoProfile.organizationName %> Dashboard | NGO Connect</title>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #4F46E5;
-      --primary-light: #6366F1;
+      --primary-light: #818CF8;
+      --primary-lighter: #C7D2FE;
       --secondary: #4338CA;
       --accent: #EC4899;
       --success: #10B981;
       --warning: #F59E0B;
       --danger: #EF4444;
-      --dark: #1F2937;
+      --dark: #111827;
+      --darker: #0F172A;
       --light: #F9FAFB;
       --gray: #6B7280;
       --light-gray: #E5E7EB;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
     
     body {
-      background-color: #F8FAFF;
+      background-color: #F8FAFC;
       color: var(--dark);
       min-height: 100vh;
+      line-height: 1.5;
     }
     
     /* Header Styles */
@@ -41,9 +47,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
+      padding: 18px 40px;
       background: white;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
     
     .logo {
@@ -53,19 +62,19 @@
     }
     
     .logo-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--primary);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     
     .logo-text {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       background: linear-gradient(to right, var(--primary), var(--accent));
       -webkit-background-clip: text;
@@ -75,60 +84,55 @@
     .user-nav {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 28px;
     }
     
     .nav-link {
       color: var(--gray);
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
-      position: relative;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 8px;
     }
     
     .nav-link:hover {
       color: var(--primary);
+      background-color: var(--primary-lighter);
     }
     
-    .nav-link:hover::after {
-      width: 100%;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
+    .nav-link.active {
+      color: var(--primary);
+      background-color: var(--primary-lighter);
     }
     
     .btn {
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-size: 0.95rem;
+      border: none;
     }
     
     .btn-primary {
       background: var(--primary);
       color: white;
-      border: none;
+      box-shadow: 0 1px 2px rgba(79, 70, 229, 0.2);
     }
     
     .btn-primary:hover {
       background: var(--secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
     }
     
     /* Main Content */
@@ -142,28 +146,22 @@
     .welcome-banner {
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
-      border-radius: 16px;
+      border-radius: 12px;
       padding: 30px;
       margin-bottom: 30px;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--card-shadow);
     }
     
     .welcome-banner::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -50%;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 200%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-      opacity: 0.15;
-      animation: rotate 30s linear infinite;
-    }
-    
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      height: 100%;
+      background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
     }
     
     .welcome-content {
@@ -174,56 +172,59 @@
     .welcome-title {
       font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     
     .welcome-text {
       opacity: 0.9;
       margin-bottom: 20px;
       max-width: 600px;
+      font-size: 1rem;
     }
     
     /* Stats Overview */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      gap: 20px;
       margin-bottom: 40px;
     }
     
     .stat-card {
       background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      border-top: 4px solid transparent;
     }
     
     .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
     }
     
     .stat-card.primary {
-      border-left: 4px solid var(--primary);
+      border-top-color: var(--primary);
     }
     
     .stat-card.success {
-      border-left: 4px solid var(--success);
+      border-top-color: var(--success);
     }
     
     .stat-card.warning {
-      border-left: 4px solid var(--warning);
+      border-top-color: var(--warning);
     }
     
     .stat-value {
       font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      color: var(--darker);
     }
     
     .stat-label {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--gray);
     }
     
@@ -236,8 +237,9 @@
     }
     
     .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--darker);
       position: relative;
       display: inline-block;
     }
@@ -247,29 +249,31 @@
       position: absolute;
       bottom: -8px;
       left: 0;
-      width: 50px;
-      height: 4px;
+      width: 40px;
+      height: 3px;
       background: var(--primary);
-      border-radius: 2px;
+      border-radius: 3px;
     }
     
     .campaigns-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
     }
     
     .campaign-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-      transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
     }
     
     .campaign-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
     }
     
     .campaign-image {
@@ -286,7 +290,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 70%);
     }
     
     .campaign-status {
@@ -295,9 +299,11 @@
       right: 15px;
       padding: 5px 12px;
       border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.75rem;
+      font-weight: 600;
       z-index: 2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .status-active {
@@ -317,19 +323,24 @@
     
     .campaign-content {
       padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .campaign-title {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1.15rem;
+      font-weight: 700;
       margin-bottom: 10px;
+      color: var(--darker);
     }
     
     .campaign-description {
       color: var(--gray);
       margin-bottom: 20px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.5;
+      flex: 1;
     }
     
     .progress-container {
@@ -340,20 +351,20 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 8px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     
     .progress-bar {
-      height: 8px;
+      height: 6px;
       background: var(--light-gray);
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
     }
     
     .progress-fill {
       height: 100%;
       background: var(--primary);
-      border-radius: 4px;
+      border-radius: 3px;
       transition: width 0.5s ease;
     }
     
@@ -363,19 +374,30 @@
       align-items: center;
       padding-top: 15px;
       border-top: 1px solid var(--light-gray);
+      margin-top: auto;
+    }
+    
+    .donations-count {
+      font-size: 0.85rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     
     .view-btn {
       color: var(--primary);
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
     
     .view-btn:hover {
+      color: var(--secondary);
       gap: 8px;
     }
     
@@ -383,6 +405,10 @@
     @media (max-width: 1024px) {
       .welcome-title {
         font-size: 1.6rem;
+      }
+      
+      .dashboard-header {
+        padding: 16px 30px;
       }
     }
     
@@ -395,12 +421,24 @@
       
       .user-nav {
         width: 100%;
-        justify-content: space-between;
-        gap: 15px;
+        justify-content: space-around;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+      
+      .nav-link {
+        padding: 6px 8px;
+        font-size: 0.9rem;
       }
       
       .welcome-banner {
         padding: 20px;
+        text-align: center;
+      }
+      
+      .welcome-text {
+        margin-left: auto;
+        margin-right: auto;
       }
       
       .campaigns-grid {
@@ -416,13 +454,19 @@
       .stats-grid {
         grid-template-columns: 1fr;
       }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
     }
     
     /* Animations */
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
       }
       to {
         opacity: 1;
@@ -431,20 +475,18 @@
     }
     
     .stat-card, .campaign-card {
-      animation: fadeIn 0.6s ease-out forwards;
+      animation: fadeIn 0.4s ease-out forwards;
+      opacity: 0;
     }
     
-    .stat-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
     
-    .stat-card:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-    
-    .campaign-card:nth-child(1) { animation-delay: 0.1s; }
-    .campaign-card:nth-child(2) { animation-delay: 0.2s; }
-    .campaign-card:nth-child(3) { animation-delay: 0.3s; }
+    .campaign-card { animation-delay: 0.4s; }
+    .campaign-card:nth-child(2) { animation-delay: 0.5s; }
+    .campaign-card:nth-child(3) { animation-delay: 0.6s; }
+    .campaign-card:nth-child(4) { animation-delay: 0.7s; }
   </style>
 </head>
 <body>
@@ -544,7 +586,10 @@
               </div>
               
               <div class="campaign-actions">
-                <span><%= campaign.donations %> donations</span>
+                <span class="donations-count">
+                  <i class="fas fa-heart"></i>
+                  <%= campaign.donations %> donations
+                </span>
                 <a href="/campaign/<%= campaign.id %>" class="view-btn">
                   View Details
                   <i class="fas fa-arrow-right"></i>

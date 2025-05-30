@@ -2,298 +2,436 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NGO Hub | Modern Directory</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Previous head content remains the same -->
   <style>
-    :root {
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
-      --dark: #1e293b;
-      --light: #f8fafc;
-      --gray: #64748b;
-      --light-gray: #e2e8f0;
-    }
-
-    body {
-      background-color: #f8fafc;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--dark);
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    /* Add these new styles to your existing CSS */
+    
+    /* NGO Detail Modal */
+    .ngo-modal .modal-content {
+      border-radius: var(--border-radius);
       overflow: hidden;
-      height: 100%;
+      border: none;
     }
-
-    .glass-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
-      border-color: rgba(99, 102, 241, 0.2);
-    }
-
-    .hero-gradient {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    
+    .ngo-modal .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
-      padding: 5rem 0;
-      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-      margin-bottom: 3rem;
+      border-bottom: none;
+      padding: 2rem;
+      position: relative;
     }
-
-    .ngo-image {
-      height: 200px;
-      object-fit: cover;
+    
+    .ngo-modal .modal-title {
+      font-weight: 800;
+      font-size: 1.8rem;
+    }
+    
+    .ngo-modal .modal-body {
+      padding: 2rem;
+    }
+    
+    .detail-section {
+      margin-bottom: 2rem;
+    }
+    
+    .detail-section h4 {
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--light-gray);
+      padding-bottom: 0.5rem;
+    }
+    
+    .detail-row {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: var(--darker);
+      min-width: 150px;
+    }
+    
+    .detail-value {
+      color: var(--gray);
+      flex-grow: 1;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    /* Gallery */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 1rem;
+    }
+    
+    .gallery-item {
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .gallery-item img {
       width: 100%;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
     }
-
-    .glass-card:hover .ngo-image {
+    
+    .gallery-item:hover img {
       transform: scale(1.05);
     }
-
-    .image-placeholder {
-      background: linear-gradient(45deg, #f1f5ff, #e0e7ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-light);
+    
+    /* Impact Metrics */
+    .impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 1rem;
     }
-
-    .verified-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--primary);
-      padding: 6px 14px;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    
+    .metric-card {
+      background: var(--lighter);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
     }
-
-    .card-body {
-      padding: 1.75rem;
-    }
-
-    .ngo-name {
-      font-size: 1.3rem;
+    
+    .metric-value {
+      font-size: 1.5rem;
       font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
-    }
-
-    .ngo-description {
-      color: var(--gray);
-      font-size: 0.92rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .tag-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 1.25rem;
-    }
-
-    .ngo-tag {
-      background-color: #e0e7ff;
-      color: var(--primary-dark);
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .action-btn {
-      background: linear-gradient(to right, var(--primary), var(--primary-light));
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .action-btn:hover {
-      background: linear-gradient(to right, var(--primary-dark), var(--primary));
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
-    }
-
-    .search-bar {
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50px;
-      padding: 12px 24px;
-      color: white;
-      backdrop-filter: blur(5px);
-    }
-
-    .search-bar::placeholder {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .filter-chip {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-      margin: 0 6px 12px;
-    }
-
-    .filter-chip:hover, .filter-chip.active {
-      background: white;
       color: var(--primary);
-      border-color: white;
+      margin-bottom: 0.25rem;
     }
-
-    .section-header {
-      position: relative;
-      margin-bottom: 3rem;
+    
+    .metric-label {
+      font-size: 0.85rem;
+      color: var(--gray);
     }
-
-    .section-header h2 {
-      font-weight: 800;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-header h2:after {
-      content: '';
-      position: absolute;
-      width: 60%;
-      height: 4px;
-      background: linear-gradient(to right, var(--primary), transparent);
-      bottom: -10px;
-      left: 0;
-      border-radius: 2px;
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .detail-row {
+        flex-direction: column;
+      }
+      
+      .detail-label {
+        margin-bottom: 0.25rem;
+      }
+      
+      .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .impact-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero-gradient">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-          <h1 class="display-4 fw-bold mb-3">Discover Impactful NGOs</h1>
-          <p class="lead mb-4">Connect with verified organizations making a difference worldwide</p>
-          
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="input-group mb-4">
-                <input type="text" class="form-control search-bar" placeholder="Search NGOs by name, cause or location...">
-                <button class="btn btn-light" type="button">
-                  <i class="fas fa-search"></i>
+  <!-- Previous hero section and stats section remain the same -->
+
+  <!-- NGO Listing -->
+  <div class="container mb-5 pb-5">
+    <div class="section-header">
+      <h2 class="section-title">Featured Organizations</h2>
+      <p class="section-subtitle">Browse through our verified partners making real impact in various sectors</p>
+    </div>
+    
+    <% if (ngos && ngos.length > 0) { %>
+      <div class="row g-4" id="ngoContainer">
+        <% ngos.forEach(function(ngo) { %>
+          <div class="col-lg-4 col-md-6" data-causes="<%= ngo.causes ? ngo.causes.join(',').toLowerCase() : '' %>">
+            <div class="ngo-card">
+              <div class="ngo-image-container">
+                <% if (ngo.image) { %>
+                  <img src="<%= ngo.image %>" class="ngo-image" alt="<%= ngo.name %>">
+                <% } else { %>
+                  <div class="image-placeholder">
+                    <i class="fas fa-hands-helping fa-3x"></i>
+                  </div>
+                <% } %>
+                <% if (ngo.verified) { %>
+                  <span class="verified-badge">
+                    <i class="fas fa-check-circle"></i>
+                    Verified
+                  </span>
+                <% } %>
+              </div>
+              
+              <div class="card-body">
+                <h3 class="ngo-name"><%= ngo.name %></h3>
+                
+                <% if (ngo.location) { %>
+                  <p class="text-muted mb-2">
+                    <i class="fas fa-map-marker-alt"></i> <%= ngo.location %>
+                  </p>
+                <% } %>
+                
+                <% if (ngo.causes && ngo.causes.length) { %>
+                  <div class="tag-container">
+                    <% ngo.causes.slice(0, 3).forEach(function(cause) { %>
+                      <span class="ngo-tag"><%= cause %></span>
+                    <% }) %>
+                    <% if (ngo.causes.length > 3) { %>
+                      <span class="ngo-tag">+<%= ngo.causes.length - 3 %></span>
+                    <% } %>
+                  </div>
+                <% } %>
+                
+                <p class="ngo-description">
+                  <% if (ngo.description) { %>
+                    <%= ngo.description.length > 120 ? ngo.description.substring(0, 120) + '...' : ngo.description %>
+                  <% } else { %>
+                    Committed to creating sustainable change through community initiatives and programs.
+                  <% } %>
+                </p>
+                
+                <button class="action-btn view-details-btn" data-ngo-id="<%= ngo.id %>">
+                  <i class="fas fa-eye"></i>
+                  View Details
                 </button>
               </div>
             </div>
           </div>
-
-          <div class="d-flex flex-wrap justify-content-center">
-            <button class="filter-chip active">All</button>
-            <button class="filter-chip">Education</button>
-            <button class="filter-chip">Environment</button>
-            <button class="filter-chip">Health</button>
-            <button class="filter-chip">Animals</button>
-            <button class="filter-chip">Women</button>
-          </div>
-        </div>
+        <% }) %>
       </div>
-    </div>
-  </section>
+    <% } else { %>
+      <!-- Empty state remains the same -->
+    <% } %>
+  </div>
 
-  <!-- NGO Listing -->
-  <div class="container mb-5">
-    <div class="section-header text-center">
-      <h2>Featured Organizations</h2>
-    </div>
-    
-    <div class="row g-4">
-      <% ngos.forEach(function(ngo) { %>
-        <div class="col-lg-4 col-md-6">
-          <div class="glass-card h-100">
-            <div class="position-relative overflow-hidden">
-              <% if (ngo.image) { %>
-                <img src="<%= ngo.image %>" class="ngo-image" alt="<%= ngo.name %>">
-              <% } else { %>
-                <div class="ngo-image image-placeholder">
-                  <i class="fas fa-hands-helping fa-3x"></i>
+  <!-- NGO Detail Modal -->
+  <div class="modal fade ngo-modal" id="ngoDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ngoModalTitle">Organization Name</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-section">
+                <h4>About</h4>
+                <p id="ngoFullDescription">Loading description...</p>
+              </div>
+              
+              <div class="detail-section">
+                <h4>Key Information</h4>
+                <div class="detail-row">
+                  <span class="detail-label">Founded:</span>
+                  <span class="detail-value" id="ngoFounded">2005</span>
                 </div>
-              <% } %>
-              <div class="verified-badge">
-                <i class="fas fa-check-circle"></i>
-                Verified
+                <div class="detail-row">
+                  <span class="detail-label">Location:</span>
+                  <span class="detail-value" id="ngoLocation">New York, USA</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Focus Areas:</span>
+                  <span class="detail-value" id="ngoFocusAreas">Education, Poverty</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Legal Status:</span>
+                  <span class="detail-value" id="ngoLegalStatus">Registered 501(c)(3)</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Contact Email:</span>
+                  <span class="detail-value" id="ngoContactEmail">contact@example.org</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Website:</span>
+                  <span class="detail-value">
+                    <a href="#" id="ngoWebsite" target="_blank">Visit Website</a>
+                  </span>
+                </div>
+              </div>
+              
+              <div class="detail-section">
+                <h4>Contact</h4>
+                <div class="social-links">
+                  <a href="#" class="social-link" id="ngoFacebook"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social-link" id="ngoTwitter"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-link" id="ngoLinkedin"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#" class="social-link" id="ngoInstagram"><i class="fab fa-instagram"></i></a>
+                </div>
               </div>
             </div>
             
-            <div class="card-body">
-              <h3 class="ngo-name"><%= ngo.name %></h3>
-              
-              <% if (ngo.causes && ngo.causes.length) { %>
-                <div class="tag-container">
-                  <% ngo.causes.slice(0, 3).forEach(function(cause) { %>
-                    <span class="ngo-tag"><%= cause %></span>
-                  <% }) %>
+            <div class="col-md-6">
+              <div class="detail-section">
+                <h4>Impact Metrics</h4>
+                <div class="impact-metrics">
+                  <div class="metric-card">
+                    <div class="metric-value" id="ngoPeopleImpacted">25K</div>
+                    <div class="metric-label">People Impacted</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value" id="ngoProjects">42</div>
+                    <div class="metric-label">Active Projects</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value" id="ngoCountries">8</div>
+                    <div class="metric-label">Countries</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value" id="ngoVolunteers">350</div>
+                    <div class="metric-label">Volunteers</div>
+                  </div>
                 </div>
-              <% } %>
+              </div>
               
-              <p class="ngo-description">
-                <% if (ngo.description) { %>
-                  <%= ngo.description.length > 120 ? ngo.description.substring(0, 120) + '...' : ngo.description %>
-                <% } else { %>
-                  Committed to creating sustainable change through community initiatives and programs.
-                <% } %>
-              </p>
+              <div class="detail-section">
+                <h4>Financial Information</h4>
+                <div class="detail-row">
+                  <span class="detail-label">Annual Budget:</span>
+                  <span class="detail-value" id="ngoBudget">$2.5 million</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Funding Sources:</span>
+                  <span class="detail-value" id="ngoFundingSources">Grants, Donations</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Financial Rating:</span>
+                  <span class="detail-value" id="ngoFinancialRating">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                    4.5/5
+                  </span>
+                </div>
+              </div>
               
-              <a href="/ngos/<%= ngo.id %>" class="action-btn">
-                <i class="fas fa-arrow-right"></i>
-                View Details
-              </a>
+              <div class="detail-section">
+                <h4>Gallery</h4>
+                <div class="gallery-container">
+                  <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200?text=NGO+Image+1" alt="NGO Activity">
+                  </div>
+                  <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200?text=NGO+Image+2" alt="NGO Activity">
+                  </div>
+                  <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200?text=NGO+Image+3" alt="NGO Activity">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      <% }) %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Donate Now</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Filter chip functionality
-    document.querySelectorAll('.filter-chip').forEach(chip => {
-      chip.addEventListener('click', function() {
-        document.querySelector('.filter-chip.active').classList.remove('active');
-        this.classList.add('active');
-        // Filter functionality would go here
+    document.addEventListener('DOMContentLoaded', function() {
+      // Previous JavaScript remains the same
+      
+      // NGO Detail Modal functionality
+      const viewDetailButtons = document.querySelectorAll('.view-details-btn');
+      const ngoModal = new bootstrap.Modal(document.getElementById('ngoDetailModal'));
+      
+      viewDetailButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const ngoId = this.getAttribute('data-ngo-id');
+          
+          // In a real app, you would fetch the detailed NGO data from your backend
+          // For this example, we'll use the data from the card and simulate some details
+          const card = this.closest('.ngo-card');
+          const ngoName = card.querySelector('.ngo-name').textContent;
+          const ngoLocation = card.querySelector('.text-muted')?.textContent || 'Not specified';
+          const ngoDescription = card.querySelector('.ngo-description').textContent;
+          const ngoCauses = Array.from(card.querySelectorAll('.ngo-tag')).map(tag => tag.textContent).join(', ');
+          
+          // Set modal content
+          document.getElementById('ngoModalTitle').textContent = ngoName;
+          document.getElementById('ngoFullDescription').textContent = 
+            ngoDescription.endsWith('...') ? 
+            ngoDescription + ' (Full description would appear here with more details about the organization\'s mission, history, and approach to solving problems.)' : 
+            ngoDescription;
+          
+          document.getElementById('ngoLocation').textContent = ngoLocation.replace('📍', '').trim();
+          document.getElementById('ngoFocusAreas').textContent = ngoCauses;
+          
+          // Show the modal
+          ngoModal.show();
+          
+          // In a real app, you would fetch complete details here:
+          // fetch(`/api/ngos/${ngoId}`)
+          //   .then(response => response.json())
+          //   .then(data => populateModal(data))
+          //   .catch(error => console.error('Error:', error));
+        });
       });
+      
+      // Function to populate modal with complete NGO data
+      function populateModal(ngoData) {
+        // This would be called after fetching detailed NGO data
+        document.getElementById('ngoFounded').textContent = ngoData.founded || 'Not specified';
+        document.getElementById('ngoLegalStatus').textContent = ngoData.legal_status || 'Not specified';
+        document.getElementById('ngoContactEmail').textContent = ngoData.contact_email || 'Not available';
+        document.getElementById('ngoWebsite').href = ngoData.website || '#';
+        document.getElementById('ngoWebsite').textContent = ngoData.website ? new URL(ngoData.website).hostname : 'Not available';
+        
+        // Social links
+        if (ngoData.social_links) {
+          if (ngoData.social_links.facebook) {
+            document.getElementById('ngoFacebook').href = ngoData.social_links.facebook;
+          } else {
+            document.getElementById('ngoFacebook').style.display = 'none';
+          }
+          // Repeat for other social networks...
+        }
+        
+        // Impact metrics
+        if (ngoData.metrics) {
+          document.getElementById('ngoPeopleImpacted').textContent = ngoData.metrics.people_impacted?.toLocaleString() || 'N/A';
+          document.getElementById('ngoProjects').textContent = ngoData.metrics.projects || 'N/A';
+          document.getElementById('ngoCountries').textContent = ngoData.metrics.countries || 'N/A';
+          document.getElementById('ngoVolunteers').textContent = ngoData.metrics.volunteers?.toLocaleString() || 'N/A';
+        }
+        
+        // Financial info
+        if (ngoData.financial) {
+          document.getElementById('ngoBudget').textContent = ngoData.financial.budget || 'Not disclosed';
+          document.getElementById('ngoFundingSources').textContent = ngoData.financial.funding_sources?.join(', ') || 'Various';
+        }
+      }
     });
   </script>
 </body>

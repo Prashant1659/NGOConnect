@@ -9,11 +9,13 @@ router.get('/dashboard', isAuthenticated, isRole('donor'), donorController.dashb
 
 // Add after dashboard route
 router.get('/campaigns', isAuthenticated, isRole('donor'), donorController.listCampaigns);
+// router.get('/donations/', isAuthenticated, isRole('donor'), donorController.listDonatiionsPage);
 
 router.get('/donate/:id', isAuthenticated, isRole('donor'), donorController.getDonatePage);
 router.post('/donate/:id', isAuthenticated, isRole('donor'), donorController.postDonate);
 router.get('/profile', isAuthenticated, isRole('donor'), donorController.profile);
 router.get('/usage-report', isAuthenticated, isRole('donor'), donorController.viewUsageReport);
+// router.get('/donation-history', isAuthenticated, isRole('donor'), donorController.DonationHistory);
 
 
 module.exports = router;
